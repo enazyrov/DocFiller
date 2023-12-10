@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Страница авторизации</title>
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/home"> Главная</a></li>
+                <li><a href="/feedback"> Отзывы</a></li>
+                <li><a href="/feedback/editor"> Добавить свой отзыв</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/registration"> Регистрация</a></li>
+                <li class="active">
+                    <a href="/login"><span class="glyphicon glyphicon-log-in"></span> Войти</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid text-center">
+    <div class="row content">
+        <div class="col-sm-4 text-left">
+
+            <form th:action="@{/login}" method="post">
+                <fieldset>
+                    <h2>Введите данные</h2>
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger">
+                            Вы ввели неправильные данные
+                        </div>
+                    </div>
+                    <div th:if="${param.logout}">
+                        <div class="alert alert-danger">
+                            Вы вышли с аккаунта
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="username" type="text" class="form-control" name="username"
+                               placeholder="Логин" required="required"/>
+                    </div>
+                    <br/>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input id="password" type="password" class="form-control" name="password"
+                               placeholder="Пароль" required="required"/>
+                    </div>
+                    <br/>
+                    <div>
+                        <button type="submit" class="btn btn-success">Войти</button>
+                        <h5>Еще нет аккаунта? <a href="/registration"> Зарегистрироваться</a></h5>
+                    </div>
+                </fieldset>
+            </form>
+            <hr/>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

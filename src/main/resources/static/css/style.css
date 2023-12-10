@@ -1,0 +1,67 @@
+.content-wrapper {
+    width: 100%;
+}
+
+.content {
+    float: left;
+    width: 70%;
+}
+
+.reference-menu {
+    margin: 4px 0 0 0;
+    padding-left: 4px;
+    max-width: 330px;
+    word-wrap: break-word;
+}
+
+.reference-menu-container {
+    float: right;
+    width: 30%;
+}
+
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.row.content {
+    height: 450px
+}
+
+footer {
+    background-color: #555;
+    color: white;
+    padding: 15px;
+}
+
+@media screen and (max-width: 900px) {
+    .row.content {
+       height: auto;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .col-sm-8 {
+        width: 100%;
+    }
+}
+
+ul {
+    list-style-position: inside;
+}
+
+.change-number-equations{
+    padding: 10px 5% 10px;
+    text-align: center;
+}
+
+.equation-header {
+    padding: 10px;
+    text-align: center;
+}
+
+.equation {
+    padding: 10px;
+    text-align: center;
+}
+
