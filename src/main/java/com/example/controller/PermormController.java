@@ -6,11 +6,10 @@ import com.example.model.Predefense;
 import com.example.service.PerformService;
 import com.example.service.PredefenseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -39,5 +38,15 @@ public class PermormController {
 
             return "perform";
         } else return "redirect:/perform";
+    }
+
+    @PostMapping(path = "/delete")
+    public String deleteDefense(@RequestParam(value="deleteButton") String id) {
+        try {
+            performRepository.deleteById(Integer.parseInt(id));
+            System.out.println("The perform with id " + id + " was deleted");
+        } catch (EmptyResultDataAccessException | IllegalArgumentException ignored) {
+        }
+        return "redirect:/performs";
     }
 }

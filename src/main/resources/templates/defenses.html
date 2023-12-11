@@ -54,8 +54,9 @@
                 <p th:text="'Вид защиты: ' + ${defense.type}"/>
                 <p th:text="'Студент: ' + ${defense.performId.fullFio}"/>
                 <form action="/defenses/delete" method="post" class="mb-3"><br>
-                    <input >
-                    <button type="submit" class="btn btn-success" value="${defense.id}">Удалить из базы</button>
+                    <button type="submit" class="btn btn-danger" name="deleteButton" th:value="@{${defense.id}}">
+                        Удалить из базы
+                    </button>
                     <br>
                 </form>
             </div>

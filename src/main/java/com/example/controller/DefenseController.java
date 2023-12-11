@@ -42,9 +42,10 @@ public class DefenseController {
     }
 
     @PostMapping(path = "/delete")
-    public String deleteDefense(@RequestParam String id) {
+    public String deleteDefense(@RequestParam(value="deleteButton") String id) {
         try {
             defenseRepository.deleteById(Integer.parseInt(id));
+            System.out.println("The defense with id " + id + " was deleted");
         } catch (EmptyResultDataAccessException | IllegalArgumentException ignored) {
         }
         return "redirect:/defenses";

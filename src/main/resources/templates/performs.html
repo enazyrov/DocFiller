@@ -52,9 +52,12 @@
                 <p th:text="'Тип документа: ' + ${perform.type}"/>
                 <h4 th:text="'Студент: ' + ${perform.fullFio}"></h4>
                 <p th:text="'Тема выпускной работы: ' + ${perform.topic}"/>
-                <a th:href="@{/performs/delete/} + ${perform.id}">
-                    <img border="0" src="/images/remove-icon.png" width="30" height="30"/>
-                </a>
+                <form action="/performs/delete" method="post" class="mb-3"><br>
+                    <button type="submit" class="btn btn-danger" name="deleteButton" th:value="@{${perform.id}}">
+                        Удалить из базы
+                    </button>
+                    <br>
+                </form>
             </div>
 
         </div>
