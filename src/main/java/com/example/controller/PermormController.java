@@ -30,7 +30,7 @@ public class PermormController {
     }
 
     @GetMapping(path = "/newPerform")
-    public String editorPage(Model model) {
+    public String newPerformPage(Model model) {
         return "newPerform";
     }
 

@@ -27,13 +27,9 @@ public class PredefenseController {
         return "predefenses";
     }
 
-    @GetMapping(path = "/create")
-    public String createPredefense() {
-
-        //Predefense predefense = new Predefense();
-        //predefenseRepository.save(predefense);
-        //return "redirect:/predefenses";
-        return "predefenses";
+    @GetMapping(path = "/newPredefense")
+    public String newPredefensePage(Model model) {
+        return "newPredefense";
     }
 
     @GetMapping(path = {"/{id}"})
