@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Создание нового протокола предзащиты</title>
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/home">Главная</a></li>
+                <li><a href="/performs">Сведения о защите</a></li>
+                <li class="active"><a href="/performs/newPerform">Добавить сведения о защите</a></li>
+                <li><a href="/predefenses">Предзащиты</a></li>
+                <li><a href="/predefenses/newPredefense">Добавить предзащиту</a></li>
+                <li><a href="/defenses">Защиты</a></li>
+                <li><a href="/defenses/newDefense">Добавить защиту</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/registration"> Регистрация</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>  Войти</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid text-center">
+    <div class="row content">
+        <div class="col-sm-8 text-left">
+            <form action="/performs/newPerform/submit" method="post">
+                <h1>Новые сведения о защите</h1>
+                <h5>Тип защиты</h5>
+                <input type="text" name="type" class="form-control"><br>
+                <h5>ФИО выпускника</h5>
+                <input type="text" name="fullFio" class="form-control"><br>
+                <h5>Номер группы</h5>
+                <input type="text" name="groupNumber" class="form-control"><br>
+                <h5>Тема ВКР</h5>
+                <input type="text" name="topic" class="form-control"><br>
+                <h5>Имя консультанта по ВКР (ученая степень, ученое звание, ФИО);</h5>
+                <input type="text" name="advisorFioProtocol" class="form-control"><br>
+                <button type="submit" name="createButton" class="btn btn-success">Сохранить</button>
+            </form>
+            <hr/>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
