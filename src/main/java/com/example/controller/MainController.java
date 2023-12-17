@@ -1,11 +1,9 @@
 package com.example.controller;
 
-import com.example.model.Perform;
 import com.example.service.DefenseService;
 import com.example.service.PerformService;
 import com.example.service.PredefenseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,12 +42,6 @@ public class MainController {
     public String reviewsPage(Model model) {
         model.addAttribute("reviews", reviewService.getAll());
         return "reviews";
-    }
-
-    @RequestMapping(path = "/performs/editor/submit", method = RequestMethod.POST)
-    public String submitPerform(@ModelAttribute Perform perform) {
-        performService.save(perform);
-        return "redirect:../";
     }
 
     @RequestMapping(path = "/feedback/editor/submit", method = RequestMethod.POST)

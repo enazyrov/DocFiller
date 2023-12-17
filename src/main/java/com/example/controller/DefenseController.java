@@ -30,7 +30,7 @@ public class DefenseController {
         return "defenses";
     }
 
-    @GetMapping(value = {"/{id}"})
+    @GetMapping(path = {"/{id}"})
     public String getDefense(@PathVariable(value = "id") String id, Model model) {
         Optional<Defense> optionalDefense = defenseRepository.findById(Integer.parseInt(id));
         if (optionalDefense.isPresent()) {

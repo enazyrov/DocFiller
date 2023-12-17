@@ -27,7 +27,16 @@ public class PredefenseController {
         return "predefenses";
     }
 
-    @GetMapping(value = {"/{id}"})
+    @GetMapping(path = "/create")
+    public String createPredefense() {
+
+        //Predefense predefense = new Predefense();
+        //predefenseRepository.save(predefense);
+        //return "redirect:/predefenses";
+        return "predefenses";
+    }
+
+    @GetMapping(path = {"/{id}"})
     public String getPredefense(@PathVariable(value = "id") String id, Model model) {
         Optional<Predefense> optionalPredefense = predefenseRepository.findById(Integer.parseInt(id));
         if (optionalPredefense.isPresent()) {

@@ -29,6 +29,35 @@ public class PermormController {
         return "performs";
     }
 
+    @GetMapping(path = "/newPerform")
+    public String editorPage(Model model) {
+        return "newPerform";
+    }
+
+    /*@RequestMapping(path = "/editor/submit", method = RequestMethod.POST)
+    public String submitPerform(@ModelAttribute Perform perform) {
+        performService.save(perform);
+        return "redirect:/performs";
+    }*/
+
+    @PostMapping(path = "/newPerform/submit")
+    public String createPerform(@RequestParam String type,
+                                @RequestParam String fullFio,
+                                @RequestParam String groupNumber,
+                                @RequestParam String topic,
+                                @RequestParam String advisorFioProtocol) {
+
+        Perform perform = new Perform();
+        perform.setType(type);
+        perform.setFullFio(fullFio);
+        System.out.println("OUTPUT: " + type + " " + fullFio + " " + groupNumber + " " + topic);
+        perform.setGroupNumber(Integer.valueOf(groupNumber));
+        perform.setTopic(topic);
+        perform.setAdvisorFioProtocol(advisorFioProtocol);
+        performRepository.save(perform);
+        return "redirect:/performs";
+    }
+
     @GetMapping(value = {"/{id}"})
     public String getPerform(@PathVariable(value = "id") String id, Model model) {
         Optional<Perform> optionalPerform = performRepository.findById(Integer.parseInt(id));
@@ -38,6 +67,17 @@ public class PermormController {
 
             return "perform";
         } else return "redirect:/perform";
+    }
+
+    @PostMapping(path = {"/{id}/edit"})
+    public String editPerform(@PathVariable(value = "id") String id, Model model) {
+        Optional<Perform> optionalPerform = performRepository.findById(Integer.parseInt(id));
+        if (optionalPerform.isPresent()) {
+            Perform perform = optionalPerform.get();
+            model.addAttribute("perform", perform);
+
+            return "newPerform";
+        } else return "redirect:/performs";
     }
 
     @PostMapping(path = "/delete")

@@ -15,7 +15,8 @@ import java.util.Set;
 public class Defense {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "defense_seq_gen", sequenceName = "defense_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "defense_seq_gen")
     private Integer id;
 
     @Column(name = "protocol_number")

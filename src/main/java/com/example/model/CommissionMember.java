@@ -12,7 +12,8 @@ import java.util.Set;
 public class CommissionMember {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "commission_member_seq_gen", sequenceName = "commission_member_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "commission_member_seq_gen")
     private Integer id;
 
     @Column
