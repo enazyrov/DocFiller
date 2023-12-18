@@ -4,13 +4,10 @@ import com.example.dao.DefenseRepository;
 import com.example.dao.PerformRepository;
 import com.example.model.Defense;
 import com.example.model.Perform;
-import com.example.model.Predefense;
 import com.example.service.CommissionMemberService;
 import com.example.service.DefenseService;
 import com.example.service.PerformService;
-import com.example.utils.DateUtils;
 import com.example.utils.FioUtils;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -18,8 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.sql.Time;
-import java.time.Instant;
 import java.util.Optional;
 
 @Controller
@@ -28,15 +23,12 @@ public class DefenseController {
 
     @Autowired
     private DefenseService defenseService;
-
     @Autowired
     private DefenseRepository defenseRepository;
-
     @Autowired
     private PerformService performService;
     @Autowired
     private PerformRepository performRepository;
-
     @Autowired
     private CommissionMemberService commissionMemberService;
 

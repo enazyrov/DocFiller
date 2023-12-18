@@ -3,8 +3,10 @@ package com.example.controller;
 import com.example.dao.PerformRepository;
 import com.example.model.Perform;
 import com.example.model.Predefense;
+import com.example.service.CommissionMemberService;
 import com.example.service.PerformService;
 import com.example.service.PredefenseService;
+import com.example.utils.FioUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ public class PermormController {
     @Autowired
     private PerformRepository performRepository;
 
+    @Autowired
+    private CommissionMemberService commissionMemberService;
+
     @GetMapping
     public String performsPage(Model model) {
         model.addAttribute("performs", performService.getAll());
@@ -31,6 +36,7 @@ public class PermormController {
 
     @GetMapping(path = "/newPerform")
     public String newPerformPage(Model model) {
+        model.addAttribute("commissionMembers", commissionMemberService.getAll());
         return "newPerform";
     }
 
@@ -43,17 +49,25 @@ public class PermormController {
     @PostMapping(path = "/newPerform/submit")
     public String createPerform(@RequestParam String type,
                                 @RequestParam String fullFio,
+                                @RequestParam String shortFioGen,
                                 @RequestParam String groupNumber,
                                 @RequestParam String topic,
-                                @RequestParam String advisorFioProtocol) {
+                                @RequestParam String advisorFioProtocol,
+                                @RequestParam String supervisorFio,
+                                @RequestParam String supervisorFioProtocol,
+                                @RequestParam String supervisorFioReport) {
 
         Perform perform = new Perform();
         perform.setType(type);
         perform.setFullFio(fullFio);
-        System.out.println("OUTPUT: " + type + " " + fullFio + " " + groupNumber + " " + topic);
+        perform.setShortFioGen(shortFioGen);
+        perform.setShortFio(FioUtils.getShortFio(fullFio));
         perform.setGroupNumber(Integer.valueOf(groupNumber));
         perform.setTopic(topic);
         perform.setAdvisorFioProtocol(advisorFioProtocol);
+        perform.setSupervisorFio(supervisorFio);
+        perform.setSupervisorFioProtocol(supervisorFioProtocol);
+        perform.setSupervisorFioReport(supervisorFioReport);
         performRepository.save(perform);
         return "redirect:/performs";
     }

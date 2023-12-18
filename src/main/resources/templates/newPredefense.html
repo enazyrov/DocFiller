@@ -42,18 +42,35 @@
 <div class="container-fluid text-center">
     <div class="row content">
         <div class="col-sm-8 text-left">
-            <form action="/performs/newPerform/submit" method="post">
-                <h1>Новые сведения о защите</h1>
-                <h5>Тип защиты</h5>
+            <form action="/predefenses/newPredefense/submit" method="post">
+                <h1>Новый протокол предзащиты</h1>
+
+                <h5>Вид защиты</h5>
                 <input type="text" name="type" class="form-control"><br>
-                <h5>ФИО выпускника</h5>
-                <input type="text" name="fullFio" class="form-control"><br>
-                <h5>Номер группы</h5>
-                <input type="text" name="groupNumber" class="form-control"><br>
-                <h5>Тема ВКР</h5>
-                <input type="text" name="topic" class="form-control"><br>
-                <h5>Имя консультанта по ВКР (ученая степень, ученое звание, ФИО);</h5>
-                <input type="text" name="advisorFioProtocol" class="form-control"><br>
+
+                <h5>ID дела</h5>
+                <input list="performs" name="performId" class="form-control"><br>
+                <datalist id="performs">
+                    <div th:each="perform : ${performs}">
+                        <option>
+                            <p th:text="${perform.id}"/>
+                        </option>
+                    </div>
+                </datalist>
+
+                <h5>Дата предзащиты</h5>
+                <input type="date" name="date" class="form-control">
+
+                <h5>Ученая степень, ученое звание, ФИО председателя ГЭК</h5>
+                <input list="commissionMembersForChairman" name="chairmanFio" class="form-control"><br>
+                <datalist id="commissionMembersForChairman">
+                    <div th:each="commissionMember : ${commissionMembers}">
+                        <option>
+                            <p th:text="${commissionMember.degree} + ', ' + ${commissionMember.rank} + ', ' + ${commissionMember.fio}"/>
+                        </option>
+                    </div>
+                </datalist>
+
                 <button type="submit" name="createButton" class="btn btn-success">Сохранить</button>
             </form>
             <hr/>

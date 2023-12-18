@@ -45,4 +45,10 @@ public class CommissionMember {
 
     @Column
     private String rank;
+
+    @Column
+    private String position;
+
+    @Column
+    private String subunit;
 }
