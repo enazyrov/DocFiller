@@ -8,6 +8,8 @@ import com.example.model.Predefense;
 import com.example.service.CommissionMemberService;
 import com.example.service.DefenseService;
 import com.example.service.PerformService;
+import com.example.utils.DateUtils;
+import com.example.utils.FioUtils;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -15,6 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.time.Instant;
 import java.util.Optional;
 
 @Controller
@@ -53,6 +58,9 @@ public class DefenseController {
     public String createPerform(@RequestParam String protocolNumber,
                                 @RequestParam String type,
                                 @RequestParam String performId,
+                                @RequestParam String date,
+                                @RequestParam String beginTime,
+                                @RequestParam String endTime,
                                 @RequestParam String evaluation,
                                 @RequestParam String mark,
                                 @RequestParam String chairmanFio,
@@ -70,6 +78,13 @@ public class DefenseController {
         Defense defense = new Defense();
         defense.setProtocolNumber(Integer.valueOf(protocolNumber));
         defense.setType(type);
+        defense.setDate(Date.valueOf(date));
+        if (beginTime != null) {
+            defense.setBeginTime(beginTime);
+        }
+        if (endTime != null) {
+            defense.setEndTime(endTime);
+        }
         defense.setEvaluation(evaluation);
         defense.setMark(mark);
 
@@ -77,6 +92,7 @@ public class DefenseController {
         optionalPerform.ifPresent(defense::setPerformId);
 
         defense.setChairmanFio(chairmanFio);
+        defense.setShortChairmanFio(FioUtils.getShortFio(chairmanFio));
         defense.setDirectionNumber(directionNumber);
         defense.setDuration(Integer.valueOf(duration));
         defense.setPages(Integer.valueOf(pages));
@@ -87,6 +103,7 @@ public class DefenseController {
         defense.setSupervisorMark(supervisorMark);
         defense.setOtherDocuments(otherDocuments);
         defense.setSecretaryFio(secretaryFio);
+        defense.setShortSecretaryFio(FioUtils.getShortFio(secretaryFio));
         defenseRepository.save(defense);
         return "redirect:/defenses";
     }

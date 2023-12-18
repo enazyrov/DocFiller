@@ -5,9 +5,7 @@ import lombok.Data;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -29,10 +27,10 @@ public class Defense {
     private Date date;
 
     @Column(name = "begin_time")
-    private Time beginTime;
+    private String beginTime;
 
     @Column(name = "end_time")
-    private Time endTime;
+    private String endTime;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "perform_id", nullable = false)
