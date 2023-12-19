@@ -2,12 +2,12 @@ package com.example.controller;
 
 import com.example.dao.PerformRepository;
 import com.example.dao.PredefenseRepository;
+import com.example.model.Defense;
 import com.example.model.Perform;
 import com.example.model.Predefense;
 import com.example.service.CommissionMemberService;
 import com.example.service.PerformService;
 import com.example.service.PredefenseService;
-import com.example.utils.FioUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -45,11 +45,23 @@ public class PredefenseController {
         return "newPredefense";
     }
 
+    @GetMapping(path = "/{id}/edit")
+    public String editPredefensePage(@PathVariable(value="id") String id, Model model) {
+        Optional<Predefense> optionalPredefense = predefenseRepository.findById(Integer.parseInt(id));
+        if (optionalPredefense.isPresent()) {
+            Predefense predefense = optionalPredefense.get();
+            model.addAttribute("predefense", predefense);
+            model.addAttribute("performs", performService.getAll());
+            model.addAttribute("commissionMembers", commissionMemberService.getAll());
+        }
+        return "editPredefense";
+    }
+
     @PostMapping(path = "/newPredefense/submit")
     public String createPredefense(@RequestParam String type,
-                                @RequestParam String performId,
-                                @RequestParam String date,
-                                @RequestParam String chairmanFio) {
+                                   @RequestParam String performId,
+                                   @RequestParam String date,
+                                   @RequestParam String chairmanFio) {
 
         Predefense predefense = new Predefense();
         predefense.setType(type);
@@ -74,8 +86,26 @@ public class PredefenseController {
         } else return "redirect:/predefense";
     }
 
+    @PostMapping(path = "/{id}/edit/submit")
+    public String editPredefense(@PathVariable(value = "id") String id,
+                                 @RequestParam String type,
+                                 @RequestParam String date,
+                                 @RequestParam String chairmanFio) {
+
+        Optional<Predefense> optionalPredefense = predefenseRepository.findById(Integer.parseInt(id));
+        if (optionalPredefense.isPresent()) {
+            Predefense predefense = optionalPredefense.get();
+            predefense.setType(type);
+
+            predefense.setDate(Date.valueOf(date));
+            predefense.setChairmanFio(chairmanFio);
+            predefenseRepository.save(predefense);
+            return "redirect:/predefenses/" + predefense.getId();
+        } else return "redirect:/predefenses";
+    }
+
     @PostMapping(path = "/delete")
-    public String deleteDefense(@RequestParam(value="deleteButton") String id) {
+    public String deleteDefense(@RequestParam(value = "deleteButton") String id) {
         try {
             predefenseRepository.deleteById(Integer.parseInt(id));
             System.out.println("The predefense with id " + id + " was deleted");

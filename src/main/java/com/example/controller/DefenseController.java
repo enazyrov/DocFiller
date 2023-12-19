@@ -45,6 +45,20 @@ public class DefenseController {
         return "newDefense";
     }
 
+    @GetMapping(path = "/{id}/edit")
+    public String editDefensePage(@PathVariable(value="id") String id, Model model) {
+        Optional<Defense> optionalDefense = defenseRepository.findById(Integer.parseInt(id));
+        if (optionalDefense.isPresent()) {
+            Defense defense = optionalDefense.get();
+            model.addAttribute("defense", defense);
+            model.addAttribute("performs", performService.getAll());
+            model.addAttribute("commissionMembers", commissionMemberService.getAll());
+        }
+        return "editDefense";
+    }
+
+
+
 
     @PostMapping(path = "/newDefense/submit")
     public String createPerform(@RequestParam String protocolNumber,
@@ -108,11 +122,64 @@ public class DefenseController {
             model.addAttribute("defense", defense);
 
             return "defense";
-        } else return "redirect:/defense";
+        } else return "redirect:/defenses";
     }
 
+    @PostMapping(path = "/{id}/edit/submit")
+    public String editPerform(@PathVariable(value = "id") String id,
+                              @RequestParam String type,
+                              @RequestParam String date,
+                              @RequestParam String beginTime,
+                              @RequestParam String endTime,
+                              @RequestParam String evaluation,
+                              @RequestParam String mark,
+                              @RequestParam String chairmanFio,
+                              @RequestParam String directionNumber,
+                              @RequestParam String duration,
+                              @RequestParam String pages,
+                              @RequestParam String slides,
+                              @RequestParam String originality,
+                              @RequestParam String reviewerFio,
+                              @RequestParam String reviewerMark,
+                              @RequestParam String supervisorMark,
+                              @RequestParam String otherDocuments,
+                              @RequestParam String secretaryFio) {
+        Optional<Defense> optionalDefense = defenseRepository.findById(Integer.parseInt(id));
+        if (optionalDefense.isPresent()) {
+            Defense defense = optionalDefense.get();
+
+            defense.setType(type);
+            defense.setDate(Date.valueOf(date));
+            if (beginTime != null) {
+                defense.setBeginTime(beginTime);
+            }
+            if (endTime != null) {
+                defense.setEndTime(endTime);
+            }
+            defense.setEvaluation(evaluation);
+            defense.setMark(mark);
+
+            defense.setChairmanFio(chairmanFio);
+            defense.setShortChairmanFio(FioUtils.getShortFio(chairmanFio));
+            defense.setDirectionNumber(directionNumber);
+            defense.setDuration(Integer.valueOf(duration));
+            defense.setPages(Integer.valueOf(pages));
+            defense.setSlides(Integer.valueOf(slides));
+            defense.setOriginality(Integer.valueOf(originality));
+            defense.setReviewerFio(reviewerFio);
+            defense.setReviewerMark(reviewerMark);
+            defense.setSupervisorMark(supervisorMark);
+            defense.setOtherDocuments(otherDocuments);
+            defense.setSecretaryFio(secretaryFio);
+            defense.setShortSecretaryFio(FioUtils.getShortFio(secretaryFio));
+            defenseRepository.save(defense);
+            return "redirect:/defenses/" + defense.getId();
+        } else return "redirect:/defenses";
+    }
+
+
     @PostMapping(path = "/delete")
-    public String deleteDefense(@RequestParam(value="deleteButton") String id) {
+    public String deleteDefense(@RequestParam(value = "deleteButton") String id) {
         try {
             defenseRepository.deleteById(Integer.parseInt(id));
             System.out.println("The defense with id " + id + " was deleted");

@@ -55,26 +55,27 @@
 
                 <div th:value="defense">
                     <p th:text="'Номер протокола защиты: ' + ${defense.id}"/>
-                    <p th:text="'Номер протокола: ' + ${defense.protocolNumber}"/>
                     <h3 th:text="'Номер дела: ' + ${defense.performId.id}"/>
                     <p th:text="'Вид защиты: ' + ${defense.type}"/>
                     <p th:text="'Студент: ' + ${defense.performId.fullFio}"/>
                     <p th:text="'Дата: ' + ${defense.date}"/>
                     <p th:text="'Время начала: ' + ${defense.beginTime}"/>
                     <p th:text="'Время начала: ' + ${defense.endTime}"/>
-                    <p th:text="'Степень освоения: ' + ${defense.beginTime}"/>
-                    <p th:text="'Председатель ГЭК: ' + ${defense.shortChairmanFio}"/>
-                    <p th:text="'Секретарь ГЭК: ' + ${defense.shortSecretaryFio}"/>
+                    <p th:text="'Степень освоения: ' + ${defense.evaluation}"/>
+                    <p th:text="'Оценка: ' + ${defense.mark}"/>
+                    <p th:text="'Председатель ГЭК: ' + ${defense.chairmanFio}"/>
+                    <p th:text="'Секретарь ГЭК: ' + ${defense.secretaryFio}"/>
                     <p th:text="'Рецензент ВКР: ' + ${defense.reviewerFio}"/>
                     <p th:text="'Оценка рецензента ВКР: ' + ${defense.reviewerMark}"/>
                     <p th:text="'Направление: ' + ${defense.directionNumber}"/>
                     <p th:text="'Длительность защиты: ' + ${defense.duration}"/>
                     <p th:text="'Количество страниц: ' + ${defense.pages}"/>
                     <p th:text="'Количество слайдов: ' + ${defense.slides}"/>
-                    <p th:text="'Оригинальность в %: ' + ${defense.reviewerMark}"/>
+                    <p th:text="'Оригинальность в %: ' + ${defense.originality}"/>
                     <p th:text="'Оценка руководителя ВКР: ' + ${defense.supervisorMark}"/>
                     <p th:text="'Другие документы: ' + ${defense.otherDocuments}"/>
 
+                    <a th:href="@{/defenses/{id}/edit(id=${defense.id})}">Редактировать</a>
                 </div>
 
             </div>

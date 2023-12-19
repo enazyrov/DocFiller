@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <title>Предзащиты студентов</title>
+    <title>Редактор предзащиты</title>
 </head>
 <body>
 
@@ -51,20 +51,33 @@
             </div>
 
             <div class="container-xxl mt-3 mb-5">
-                <h2>Информация о предзащите</h2>
+                <h2>Редактирование предзащиты</h2>
                 <div th:value="predefense">
-                    <h1 th:text="'Номер протокола предзащиты: ' + ${predefense.id}"/>
-                    <h3 th:text="'Номер дела: ' + ${predefense.performId.id}"/>
-                    <p th:text="'Вид предзащиты: ' + ${predefense.type}"/>
-                    <p th:text="'Дата предзащиты: ' + ${predefense.date}"/>
-                    <p th:text="'Студент: ' + ${predefense.performId.fullFio}"/>
-                    <p th:text="'Председатель ВКР: ' + ${predefense.chairmanFio}"/>
+                    <form th:action="@{/predefenses/{id}/edit/submit(id=${predefense.id})}" method="post">
 
-                    <a th:href="@{/predefenses/{id}/edit(id=${predefense.id})}">Редактировать</a>
+                        <h5>Тип защиты</h5>
+                        <input type="text" name="type" class="form-control"
+                               th:value="${predefense.type}"><br>
+
+                        <h5>Дата защиты</h5>
+                        <input type="date" name="date" class="form-control"
+                               th:value="${predefense.date}"><br>
+
+                        <h5>Ученая степень, ученое звание, ФИО председателя ГЭК</h5>
+                        <input list="commissionMembersForChairman" name="chairmanFio" class="form-control" th:value="${predefense.chairmanFio}"><br>
+                        <datalist id="commissionMembersForChairman">
+                            <div th:each="commissionMember : ${commissionMembers}">
+                                <option>
+                                    <p th:text="${commissionMember.degree} + ', ' + ${commissionMember.rank} + ', ' + ${commissionMember.fio}"/>
+                                </option>
+                            </div>
+                        </datalist>
+
+                        <button type="submit" name="editButton" class="btn btn-success">Сохранить</button>
+
+                    </form>
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>
