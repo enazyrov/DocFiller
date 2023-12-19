@@ -57,6 +57,10 @@
                     <p th:text="'Тип документа: ' + ${perform.type}"/>
                     <h4 th:text="'Студент: ' + ${perform.fullFio}"></h4>
                     <p th:text="'Тема выпускной работы: ' + ${perform.topic}"/>
+                    <p th:text="'Номер группы: ' + ${perform.groupNumber}"/>
+                    <p th:text="'Консультант по ВКР: ' + ${perform.advisorFIoProtocol}"/>
+                    <p th:text="'Руководитель ВКР: ' + ${perform.supervisorFio}"/>
+
                     <a href="/performs/${perform.id}/edit">Редактировать</a>
                 </div>
             </div>
