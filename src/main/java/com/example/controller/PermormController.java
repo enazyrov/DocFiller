@@ -51,12 +51,6 @@ public class PermormController {
         return "editPerform";
     }
 
-    /*@RequestMapping(path = "/editor/submit", method = RequestMethod.POST)
-    public String submitPerform(@ModelAttribute Perform perform) {
-        performService.save(perform);
-        return "redirect:/performs";
-    }*/
-
     @PostMapping(path = "/newPerform/submit")
     public String createPerform(@RequestParam String type,
                                 @RequestParam String fullFio,
@@ -64,7 +58,6 @@ public class PermormController {
                                 @RequestParam String groupNumber,
                                 @RequestParam String topic,
                                 @RequestParam String advisorFioProtocol,
-                                @RequestParam String supervisorFio,
                                 @RequestParam String supervisorFioProtocol,
                                 @RequestParam String supervisorFioReport) {
 
@@ -76,7 +69,6 @@ public class PermormController {
         perform.setGroupNumber(Integer.valueOf(groupNumber));
         perform.setTopic(topic);
         perform.setAdvisorFioProtocol(advisorFioProtocol);
-        perform.setSupervisorFio(supervisorFio);
         perform.setSupervisorFioProtocol(supervisorFioProtocol);
         perform.setSupervisorFioReport(supervisorFioReport);
         performRepository.save(perform);
@@ -125,7 +117,7 @@ public class PermormController {
     }
 
     @PostMapping(path = "/delete")
-    public String deleteDefense(@RequestParam(value = "deleteButton") String id) {
+    public String deletePerform(@RequestParam(value = "deleteButton") String id) {
         try {
             performRepository.deleteById(Integer.parseInt(id));
             System.out.println("The perform with id " + id + " was deleted");

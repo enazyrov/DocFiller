@@ -59,6 +59,7 @@
                     <p th:text="'Дата предзащиты: ' + ${predefense.date}"/>
                     <p th:text="'Студент: ' + ${predefense.performId.fullFio}"/>
                     <p th:text="'Председатель ВКР: ' + ${predefense.chairmanFio}"/>
+                    <p th:text="'Оценка по результатам предзащиты: ' + ${predefense.mark}"/>
 
                     <a th:href="@{/predefenses/{id}/edit(id=${predefense.id})}">Редактировать</a>
                 </div>

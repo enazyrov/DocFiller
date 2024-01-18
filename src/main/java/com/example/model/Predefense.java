@@ -21,6 +21,9 @@ public class Predefense {
     @Column
     private Date date;
 
+    @Column
+    private String mark;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "perform_id", nullable = false)
     private Perform performId;

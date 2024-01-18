@@ -61,6 +61,7 @@ public class PredefenseController {
     public String createPredefense(@RequestParam String type,
                                    @RequestParam String performId,
                                    @RequestParam String date,
+                                   @RequestParam String mark,
                                    @RequestParam String chairmanFio) {
 
         Predefense predefense = new Predefense();
@@ -70,6 +71,7 @@ public class PredefenseController {
         optionalPerform.ifPresent(predefense::setPerformId);
 
         predefense.setDate(Date.valueOf(date));
+        predefense.setMark(mark);
         predefense.setChairmanFio(chairmanFio);
         predefenseRepository.save(predefense);
         return "redirect:/predefenses";
@@ -90,6 +92,7 @@ public class PredefenseController {
     public String editPredefense(@PathVariable(value = "id") String id,
                                  @RequestParam String type,
                                  @RequestParam String date,
+                                 @RequestParam String mark,
                                  @RequestParam String chairmanFio) {
 
         Optional<Predefense> optionalPredefense = predefenseRepository.findById(Integer.parseInt(id));
@@ -98,6 +101,7 @@ public class PredefenseController {
             predefense.setType(type);
 
             predefense.setDate(Date.valueOf(date));
+            predefense.setMark(mark);
             predefense.setChairmanFio(chairmanFio);
             predefenseRepository.save(predefense);
             return "redirect:/predefenses/" + predefense.getId();
@@ -105,7 +109,7 @@ public class PredefenseController {
     }
 
     @PostMapping(path = "/delete")
-    public String deleteDefense(@RequestParam(value = "deleteButton") String id) {
+    public String deletePredefense(@RequestParam(value = "deleteButton") String id) {
         try {
             predefenseRepository.deleteById(Integer.parseInt(id));
             System.out.println("The predefense with id " + id + " was deleted");

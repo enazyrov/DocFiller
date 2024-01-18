@@ -63,6 +63,10 @@
                         <input type="date" name="date" class="form-control"
                                th:value="${predefense.date}"><br>
 
+                        <h5>Оценка</h5>
+                        <input type="text" name="mark" class="form-control"
+                               th:value="${predefense.mark}"><br>
+
                         <h5>Ученая степень, ученое звание, ФИО председателя ГЭК</h5>
                         <input list="commissionMembersForChairman" name="chairmanFio" class="form-control" th:value="${predefense.chairmanFio}"><br>
                         <datalist id="commissionMembersForChairman">
