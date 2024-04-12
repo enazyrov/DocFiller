@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 @Data
@@ -13,8 +12,7 @@ import java.util.List;
 public class Defense {
 
     @Id
-    @SequenceGenerator(name = "defense_seq_gen", sequenceName = "defense_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "defense_seq_gen")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "protocol_number")

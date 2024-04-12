@@ -51,29 +51,8 @@ public class PermormController {
         return "editPerform";
     }
 
-    @PostMapping(path = "/newPerform/submit")
-    public String createPerform(@RequestParam String type,
-                                @RequestParam String fullFio,
-                                @RequestParam String shortFioGen,
-                                @RequestParam String groupNumber,
-                                @RequestParam String topic,
-                                @RequestParam String advisorFioProtocol,
-                                @RequestParam String supervisorFioProtocol,
-                                @RequestParam String supervisorFioReport) {
 
-        Perform perform = new Perform();
-        perform.setType(type);
-        perform.setFullFio(fullFio);
-        perform.setShortFioGen(shortFioGen);
-        perform.setShortFio(FioUtils.getShortFio(fullFio));
-        perform.setGroupNumber(Integer.valueOf(groupNumber));
-        perform.setTopic(topic);
-        perform.setAdvisorFioProtocol(advisorFioProtocol);
-        perform.setSupervisorFioProtocol(supervisorFioProtocol);
-        perform.setSupervisorFioReport(supervisorFioReport);
-        performRepository.save(perform);
-        return "redirect:/performs";
-    }
+
 
     @GetMapping(value = {"/{id}"})
     public String getPerform(@PathVariable(value = "id") String id, Model model) {

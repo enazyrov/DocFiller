@@ -11,8 +11,7 @@ import java.util.List;
 @Table(name = "predefense")
 public class Predefense {
     @Id
-    @SequenceGenerator(name = "predefense_seq_gen", sequenceName = "predefense_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "predefense_seq_gen")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column

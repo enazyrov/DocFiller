@@ -9,8 +9,7 @@ import lombok.Data;
 public class Remark {
 
     @Id
-    @SequenceGenerator(name = "remark_seq_gen", sequenceName = "remark_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "remark_seq_gen")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column
