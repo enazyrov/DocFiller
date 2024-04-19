@@ -55,9 +55,9 @@
 
                 <div th:value="defense">
                     <p th:text="'Номер протокола защиты: ' + ${defense.id}"/>
-                    <h3 th:text="'Номер дела: ' + ${defense.performId.id}"/>
+                    <h3 th:text="'Номер дела: ' + ${defense.perform.id}"/>
                     <p th:text="'Вид защиты: ' + ${defense.type}"/>
-                    <p th:text="'Студент: ' + ${defense.performId.fullFio}"/>
+                    <p th:text="'Студент: ' + ${defense.perform.fullFio}"/>
                     <p th:text="'Дата: ' + ${defense.date}"/>
                     <p th:text="'Время начала: ' + ${defense.beginTime}"/>
                     <p th:text="'Время начала: ' + ${defense.endTime}"/>

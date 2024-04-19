@@ -1,0 +1,245 @@
+{
+  "settings": {
+    "electronicForm": {
+      "name": "",
+      "code": "",
+      "reportCode": "корень",
+      "elements": [
+        {
+          "elementTypeCode": "1",
+          "orderNum": 1,
+          "code": "Основное",
+          "reportCode": "Основное",
+          "name": "Основные данные",
+          "blockData": {
+            "note": "",
+            "multiple": false,
+            "horizontal": false,
+            "showRequired": true,
+            "nonEditable": false,
+            "repeatMinValue": 1,
+            "repeatMaxValue": 0,
+            "physicalPerson": false,
+            "employee": false,
+            "businessman": false
+          },
+          "elements": [
+            {
+              "elementTypeCode": "1",
+              "orderNum": 1,
+              "code": "Основное___СтудентКорФиоРод",
+              "reportCode": "СтудентКорФиоРод",
+              "name": "Сокращенное имя студента в родительном падеже",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+              "elements": [],
+              "elementId": 40702
+            },
+            {
+              "elementTypeCode": "2",
+              "orderNum": 2,
+              "code": "Основное___Тема",
+              "reportCode": "Тема",
+              "name": "Тема выпускной квалификационной работы",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+              "elements": [],
+              "elementId": 40703
+            },
+            {
+              "elementTypeCode": "3",
+              "orderNum": 3,
+              "code": "Основное___ПредседательФио",
+              "reportCode": "ПредседательФио",
+              "name": "ФИО председатель комисиии",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+              "elements": [],
+              "elementId": 40704
+            },
+            {
+              "elementTypeCode": "4",
+              "orderNum": 4,
+              "code": "Основное___СтудентКорФио",
+              "reportCode": "СтудентКорФио",
+              "name": "Сокращенное имя студента",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+
+              "elements": [],
+              "elementId": 40705
+            },
+            {
+              "elementTypeCode": "5",
+              "orderNum": 5,
+              "code": "Основное___Оценка",
+              "reportCode": "Оценка",
+              "name": "Оценка по итогам предзащиты",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+
+              "elements": [],
+              "elementId": 40706
+            }
+          ],
+          "elementId": 40707
+        }
+      ],
+      "electronicFormData": {
+        "electronicFormId": 25,
+        "note": "",
+        "multiple": false,
+        "horizontal": false,
+        "showRequired": true,
+        "nonEditable": false,
+        "repeatMinValue": 1,
+        "repeatMaxValue": 0
+      }
+    },
+    "printForm": {
+      "code": "корень"
+    },
+    "draftAllowed": true,
+    "esiaTypeId": "3"
+  },
+  "performId": "",
+  "values": [
+    {
+      "code": "Основное",
+      "reportCode": "Основное",
+      "repeat": 0,
+      "elementValues": [
+        {
+          "code": "Основное___СтудентКорФиоРод",
+          "reportCode": "СтудентКорФиоРод",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___Тема",
+          "reportCode": "Тема",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___ПредседательФио",
+          "reportCode": "ПредседательФио",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___СтудентКорФио",
+          "reportCode": "СтудентКорФио",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___Оценка",
+          "reportCode": "Оценка",
+          "repeat": 0,
+          "value": ""
+        }
+      ]
+    }
+  ]
+}

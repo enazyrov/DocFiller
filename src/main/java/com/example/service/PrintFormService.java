@@ -11,7 +11,6 @@ import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
 import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.*;
@@ -81,7 +80,7 @@ public class PrintFormService {
     }
 
     public PrintForm findOne(Long typeId) {
-        return printFormRepository.findByTypeId(typeId).orElseThrow();
+        return printFormRepository.findByTypeId(typeId);
     }
 
     public void deleteById(Long pfId) {
@@ -105,22 +104,6 @@ public class PrintFormService {
 
         //return new File("C:\\Users\\enazy\\IdeaProjects\\DocFiller_\\src\\main\\resources\\static\\docs\\359_Печатная_форма.docx");
         //return downloadFileTemplate(printForm);
-    }
-
-    public ResponseEntity<Resource> createPrintFormFileResponse(PrintForm printForm) throws IOException {
-        return createResponseEntity(getPrintFormFile(printForm), printForm.getFileName());
-    }
-
-    public void createPrintFormForServiceTarget(PrintForm printForm) {
-        final PrintForm newPrintForm = printFormRepository.findByTypeId(printForm.getTypeId()).orElseThrow(() -> new IllegalArgumentException("ПФ не найдена"));
-        newPrintForm.setFileName(printForm.getFileName());
-        newPrintForm.setName(printForm.getName());
-        newPrintForm.setUuid(printForm.getUuid());
-        newPrintForm.setCreateDate(new Date());
-        newPrintForm.setSize(printForm.getSize());
-        newPrintForm.setTypeId(printForm.getTypeId());
-        printFormRepository.saveAndFlush(newPrintForm);
-        log.info("Сохранение файла {} для цели targetId = {} успешно завершено", printForm.getName());
     }
 
     /*public File downloadFileTemplate(PrintForm printForm) {
@@ -880,13 +863,20 @@ public class PrintFormService {
     }
 
 
-    public PrintForm upload(MultipartFile resource) throws IOException {
-        String uuid = FileManager.generateUuid(resource.getName());
+    public PrintForm upload(MultipartFile resource, String typeId) throws IOException {
+        final PrintForm existingPrintForm = printFormRepository.findByTypeId(Long.valueOf(typeId));
+        if (existingPrintForm != null) {
+            printFormRepository.deleteById(existingPrintForm.getId());
+        }
+
         PrintForm createdFile = new PrintForm();
 
         createdFile.setFileName(resource.getOriginalFilename());
         createdFile.setName(Objects.requireNonNull(resource.getOriginalFilename()).substring(0, resource.getOriginalFilename().lastIndexOf('.')));
         createdFile.setCreateDate(new Date());
+        createdFile.setTypeId(Long.valueOf(typeId));
+
+        String uuid = FileManager.generateUuid(resource.getName());
         createdFile.setUuid(uuid);
         createdFile.setSize(resource.getSize());
         createdFile = printFormRepository.save(createdFile);

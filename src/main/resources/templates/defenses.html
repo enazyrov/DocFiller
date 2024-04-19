@@ -53,9 +53,9 @@
             <div th:each="defense : ${defenses}">
                 <a th:href="@{/defenses/{id}(id=${defense.id})}"><h1
                         th:text="'Номер протокола защиты: ' + ${defense.id}"/></a>
-                <h3 th:text="'Номер дела: ' + ${defense.performId.id}"/>
+                <h3 th:text="'Номер дела: ' + ${defense.perform.id}"/>
                 <p th:text="'Вид защиты: ' + ${defense.type}"/>
-                <p th:text="'Студент: ' + ${defense.performId.fullFio}"/>
+                <p th:text="'Студент: ' + ${defense.perform.fullFio}"/>
                 <form action="/defenses/delete" method="post" class="mb-3"><br>
                     <button type="submit" class="btn btn-danger" name="deleteButton" th:value="@{${defense.id}}">
                         Удалить из базы

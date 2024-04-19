@@ -53,9 +53,9 @@
             <div th:each="predefense : ${predefenses}">
                 <a th:href="@{/predefenses/{id}(id=${predefense.id})}"><h1
                         th:text="'Номер протокола предзащиты: ' + ${predefense.id}"/></a>
-                <h3 th:text="'Номер дела: ' + ${predefense.performId.id}"/>
+                <h3 th:text="'Номер дела: ' + ${predefense.perform.id}"/>
                 <p th:text="'Вид защиты: ' + ${predefense.type}"/>
-                <p th:text="'Студент: ' + ${predefense.performId.fullFio}"/>
+                <p th:text="'Студент: ' + ${predefense.perform.fullFio}"/>
                 <form action="/predefenses/delete" method="post" class="mb-3"><br>
                     <button type="submit" class="btn btn-danger" name="deleteButton" th:value="@{${predefense.id}}">
                         Удалить из базы

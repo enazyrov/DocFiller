@@ -32,7 +32,7 @@ public class Defense {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "perform_id", nullable = false)
-    private Perform performId;
+    private Perform perform;
 
     @Column(name = "chairman_fio")
     private String chairmanFio;

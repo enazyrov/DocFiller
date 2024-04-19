@@ -25,9 +25,9 @@ public class PrintFormController {
     private PrintFormService printFormService;
 
     @PostMapping
-    public ResponseEntity<PrintForm> upload(@RequestParam MultipartFile file) {
+    public ResponseEntity<PrintForm> upload(@RequestParam MultipartFile file, @RequestParam String typeId) {
         try {
-            return new ResponseEntity<>(printFormService.upload(file), HttpStatus.CREATED);
+            return new ResponseEntity<>(printFormService.upload(file, typeId), HttpStatus.CREATED);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

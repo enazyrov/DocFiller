@@ -44,9 +44,9 @@ public class Perform {
     @Column(name = "group_number")
     private Integer groupNumber;
 
-    @OneToOne(mappedBy = "performId", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "perform", cascade = CascadeType.REMOVE)
     private Defense defense;
 
-    @OneToOne(mappedBy = "performId", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "perform", cascade = CascadeType.REMOVE)
     private Predefense predefense;
 }

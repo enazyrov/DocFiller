@@ -1,4 +1,4 @@
-package com.example;
+package com.example.dto.docs.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

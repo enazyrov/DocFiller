@@ -95,7 +95,7 @@ public class DefenseController {
         defense.setMark(mark);
 
         Optional<Perform> optionalPerform = performRepository.findById(Integer.parseInt(performId));
-        optionalPerform.ifPresent(defense::setPerformId);
+        optionalPerform.ifPresent(defense::setPerform);
 
         defense.setChairmanFio(chairmanFio);
         defense.setShortChairmanFio(FioUtils.getShortFio(chairmanFio));

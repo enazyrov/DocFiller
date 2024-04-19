@@ -1,32 +1,19 @@
 package com.example.service;
 
-import com.example.PrintFormCodes;
-import com.example.dao.ReportRepository;
+import com.example.dto.docs.PredefenseDto;
+import com.example.dto.docs.enums.Marks;
+import com.example.dto.docs.enums.PrintFormCodes;
 import com.example.dto.docs.example.*;
-import com.example.model.PrintForm;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.pdf.BaseFont;
+import com.example.model.Predefense;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
-import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
-import org.apache.poi.xwpf.usermodel.*;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
@@ -37,21 +24,38 @@ public class GenerateService {
 
     private final UnaryOperator<String> validationValue = s -> s != null ? s : "";
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
     @Autowired
     private ReportService reportService;
 
 
-    public JsonForPrintForm getJsonForPrintForm(ApplicationDto applicationDto, OrganizationDto organization, String serviceName, String serviceTargetName) {
+    public JsonForPrintForm getJsonForExamplePrintForm(ApplicationDto applicationDto, OrganizationDto organization, String serviceName, String serviceTargetName) {
         List<ElementDto> elementsDto = new ArrayList<>();
         List<ElementValueDto> allValuesDto = new ArrayList<>();
         List<ElementDtoForJson> elementsDtoForJsons = new ArrayList<>();
         recursElementValueDto(applicationDto.getValues(), allValuesDto);
         recursElementDto(applicationDto.getSettings().getElectronicForm().getElements(), elementsDto);
-        final String reportCode = applicationDto.getSettings().getElectronicForm().getReportCode();
         setValueElementValueDtoByElementDto(elementsDto, allValuesDto, elementsDtoForJsons);
         JsonForPrintForm jsonForPrintForm = new JsonForPrintForm();
         List<ElementDtoForJson> serviceBlock = createServiceBlock(organization, serviceName, serviceTargetName, applicationDto.getPersonalAccount());
         elementsDtoForJsons.addAll(serviceBlock);
+        getJsonForPrintFormFromElementValueDto(elementsDtoForJsons, jsonForPrintForm);
+        return jsonForPrintForm;
+    }
+
+    public JsonForPrintForm getJsonForPredefensePrintForm(PredefenseDto predefenseDto) {
+        List<ElementDto> elementsDto = new ArrayList<>();
+        List<ElementValueDto> allValuesDto = new ArrayList<>();
+        List<ElementDtoForJson> elementsDtoForJsons = new ArrayList<>();
+        recursElementValueDto(predefenseDto.getValues(), allValuesDto);
+        recursElementDto(predefenseDto.getSettings().getElectronicForm().getElements(), elementsDto);
+
+        setValueElementValueDtoByElementDto(elementsDto, allValuesDto, elementsDtoForJsons);
+        JsonForPrintForm jsonForPrintForm = new JsonForPrintForm();
+
+        /*List<ElementDtoForJson> serviceBlock = createServiceBlock(organization, serviceName, serviceTargetName, applicationDto.getPersonalAccount());
+        elementsDtoForJsons.addAll(serviceBlock);*/
         getJsonForPrintFormFromElementValueDto(elementsDtoForJsons, jsonForPrintForm);
         return jsonForPrintForm;
     }
@@ -169,7 +173,7 @@ public class GenerateService {
     }
 
     public ResponseEntity<Resource> getExamplePreview(Long number, String jsonString) throws IOException {
-        log.debug("example method: Сохраняется пример отчета...");
+        log.debug("getExamplePreview(): Сохраняется пример отчета...");
         reportService.upload(
                 3L,
                 number + "-preview.pdf",
@@ -186,7 +190,7 @@ public class GenerateService {
     }
 
     public ResponseEntity<Resource> getPredefensePreview(Long number, String jsonString) throws IOException {
-        log.debug("getApplicationPreview(): Сохраняем репорт...");
+        log.debug("getPredefensePreview(): Сохраняем заполненный протокол предзащиты...");
         reportService.upload(
                 1L,
                 number + "-preview.pdf",
@@ -200,5 +204,42 @@ public class GenerateService {
         );*/
 
         return ResponseEntity.ok().build();
+    }
+
+
+    public PredefenseDto fillPredefenseDto(Predefense predefense) {
+        PredefenseDto result;
+        try {
+
+            File settingsFile = new File("C:\\Users\\enazy\\IdeaProjects\\DocFiller_\\src\\main\\resources\\static\\settings\\predefense.json");
+            result = objectMapper.readValue(settingsFile, PredefenseDto.class);
+
+            ElementValueDto mainValue = result.getValues().get(0);
+
+            for (ElementValueDto elementValue : mainValue.getElementValues()) {
+                switch (elementValue.getReportCode()) {
+                    case ("СтудентКорФиоРод") -> {
+                        elementValue.setValue(predefense.getPerform().getShortFioGen());
+                    }
+                    case ("Тема") -> {
+                        elementValue.setValue(predefense.getPerform().getTopic());
+                    }
+                    case ("ПредседательФио") -> {
+                        elementValue.setValue(predefense.getChairmanFio());
+                    }
+                    case ("СтудентКорФио") -> {
+                        elementValue.setValue(predefense.getPerform().getShortFio());
+                    }
+                    case ("Оценка") -> {
+                        elementValue.setValue(Marks.findTextByCode(Integer.valueOf(predefense.getMark())));
+                    }
+                }
+                result.setPerformId(String.valueOf(predefense.getPerform().getId()));
+            }
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Невозможно получить файл конфигурации печатной формы");
+        }
+
+        return result;
     }
 }

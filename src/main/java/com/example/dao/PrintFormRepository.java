@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface PrintFormRepository extends JpaRepository<PrintForm, Long> {
-    Optional<PrintForm> findByTypeId(Long typeId);
+    PrintForm findByTypeId(Long typeId);
 }

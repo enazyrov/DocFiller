@@ -60,9 +60,9 @@ public class ReportService extends ResponseService {
             //report.setSize((long) dataStorageUploadResponse.getFileSize());
             reportRepository.save(report);
             FileManager.upload(bytes, uuid, false);
-            log.info("Цель {}. ПФ для дела {} успешно сохранена", typeId == 1L ? "Заявление" : "Решение", dealId);
+            log.info("Цель {}. ПФ для дела {} успешно сохранена", typeId == 1L ? "Протокол предзащиты" : "Протокол защиты", dealId);
         } catch (Exception e) {
-            throw new RuntimeException("Ошибка сохранения в DataStorage: " + e.getMessage());
+            throw new RuntimeException("Ошибка сохранения в локальное хранилище: " + e.getMessage());
         }
     }
 

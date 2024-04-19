@@ -68,7 +68,7 @@ public class PredefenseController {
         predefense.setType(type);
 
         Optional<Perform> optionalPerform = performRepository.findById(Integer.parseInt(performId));
-        optionalPerform.ifPresent(predefense::setPerformId);
+        optionalPerform.ifPresent(predefense::setPerform);
 
         predefense.setDate(Date.valueOf(date));
         predefense.setMark(mark);

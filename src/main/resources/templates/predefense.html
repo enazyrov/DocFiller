@@ -54,10 +54,10 @@
                 <h2>Информация о предзащите</h2>
                 <div th:value="predefense">
                     <h1 th:text="'Номер протокола предзащиты: ' + ${predefense.id}"/>
-                    <h3 th:text="'Номер дела: ' + ${predefense.performId.id}"/>
+                    <h3 th:text="'Номер дела: ' + ${predefense.perform.id}"/>
                     <p th:text="'Вид предзащиты: ' + ${predefense.type}"/>
                     <p th:text="'Дата предзащиты: ' + ${predefense.date}"/>
-                    <p th:text="'Студент: ' + ${predefense.performId.fullFio}"/>
+                    <p th:text="'Студент: ' + ${predefense.perform.fullFio}"/>
                     <p th:text="'Председатель ВКР: ' + ${predefense.chairmanFio}"/>
                     <p th:text="'Оценка по результатам предзащиты: ' + ${predefense.mark}"/>
 
