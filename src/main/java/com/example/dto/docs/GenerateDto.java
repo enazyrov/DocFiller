@@ -9,10 +9,10 @@ import lombok.ToString;
 
 import java.util.List;
 
-@ApiModel(description = "Класс для нового протокола предзащиты")
+@ApiModel(description = "Класс для автоматического заполнения протокола предзащиты")
 @Data
 @ToString
-public class PredefenseDto {
+public class GenerateDto {
     @ApiModelProperty(notes = "Номер сведений о защите")
     private String performId;
     @ApiModelProperty(notes = "Настройки электронной цели")

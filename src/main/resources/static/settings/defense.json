@@ -1,0 +1,624 @@
+{
+  "settings": {
+    "electronicForm": {
+      "name": "",
+      "code": "",
+      "reportCode": "корень",
+      "elements": [
+        {
+          "elementTypeCode": "1",
+          "orderNum": 1,
+          "code": "Основное",
+          "reportCode": "Основное",
+          "name": "Основные данные",
+          "blockData": {
+            "note": "",
+            "multiple": false,
+            "horizontal": false,
+            "showRequired": true,
+            "nonEditable": false,
+            "repeatMinValue": 1,
+            "repeatMaxValue": 0,
+            "physicalPerson": false,
+            "employee": false,
+            "businessman": false
+          },
+          "elements": [
+            {
+              "elementTypeCode": "1",
+              "orderNum": 1,
+              "code": "Основное___Номер",
+              "reportCode": "Номер",
+              "name": "Номер сведений о защите",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+              "elements": [],
+              "elementId": 40708
+            },
+            {
+              "elementTypeCode": "2",
+              "orderNum": 2,
+              "code": "Основное___Группа",
+              "reportCode": "Группа",
+              "name": "Номер группы",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+              "elements": [],
+              "elementId": 40709
+            },
+            {
+              "elementTypeCode": "3",
+              "orderNum": 3,
+              "code": "Основное___СтудентКорФиоРод",
+              "reportCode": "СтудентКорФиоРод",
+              "name": "Сокращенное имя студента в родительном падеже",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+              "elements": [],
+              "elementId": 40710
+            },
+            {
+              "elementTypeCode": "4",
+              "orderNum": 4,
+              "code": "Основное___Тема",
+              "reportCode": "Тема",
+              "name": "Тема выпускной квалификационной работы",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+              "elements": [],
+              "elementId": 40711
+            },
+            {
+              "elementTypeCode": "5",
+              "orderNum": 5,
+              "code": "Основное___РуководительПротокол",
+              "reportCode": "РуководительПротокол",
+              "name": "Данные научного руководителя",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+
+              "elements": [],
+              "elementId": 40712
+            },
+            {
+              "elementTypeCode": "6",
+              "orderNum": 6,
+              "code": "Основное___КолвоСтраниц",
+              "reportCode": "КолвоСтраниц",
+              "name": "Количество страниц в пояснительной записке",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+
+              "elements": [],
+              "elementId": 40713
+            },
+            {
+              "elementTypeCode": "7",
+              "orderNum": 7,
+              "code": "Основное___КолвоСлайдов",
+              "reportCode": "КолвоСлайдов",
+              "name": "Количество слайдов в презентации",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+
+              "elements": [],
+              "elementId": 40714
+            },
+            {
+              "elementTypeCode": "8",
+              "orderNum": 8,
+              "code": "Основное___ОценкаРук",
+              "reportCode": "ОценкаРук",
+              "name": "Оценка научного руководителя",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+
+              "elements": [],
+              "elementId": 40715
+            },
+            {
+              "elementTypeCode": "9",
+              "orderNum": 9,
+              "code": "Основное___КолвоПроцентов",
+              "reportCode": "КолвоПроцентов",
+              "name": "Показатель оригинальности ВКР",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+
+              "elements": [],
+              "elementId": 40716
+            },
+            {
+              "elementTypeCode": "10",
+              "orderNum": 10,
+              "code": "Основное___КолвоМинут",
+              "reportCode": "КолвоМинут",
+              "name": "Время защиты ВКР",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+
+              "elements": [],
+              "elementId": 40717
+            },
+            {
+              "elementTypeCode": "11",
+              "orderNum": 11,
+              "code": "Основное___СтудентКорФио",
+              "reportCode": "СтудентКорФио",
+              "name": "Сокращенное ФИО студента",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+
+              "elements": [],
+              "elementId": 40718
+            },
+            {
+              "elementTypeCode": "12",
+              "orderNum": 12,
+              "code": "Основное___Оценка",
+              "reportCode": "Оценка",
+              "name": "Оценка по итогам защиты",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+
+              "elements": [],
+              "elementId": 40719
+            },
+            {
+              "elementTypeCode": "13",
+              "orderNum": 13,
+              "code": "Основное___Степень",
+              "reportCode": "Степень",
+              "name": "Степень освоения компетенций",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+
+              "elements": [],
+              "elementId": 40720
+            },
+            {
+              "elementTypeCode": "14",
+              "orderNum": 14,
+              "code": "Основное___СтудентФио",
+              "reportCode": "СтудентФио",
+              "name": "ФИО студента",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+
+              "elements": [],
+              "elementId": 40721
+            },
+            {
+              "elementTypeCode": "15",
+              "orderNum": 15,
+              "code": "Основное___Квалификация",
+              "reportCode": "Квалификация",
+              "name": "Присвоенная квалификация",
+              "elementData": {
+                "width": 1,
+                "note": "",
+                "required": false,
+                "visible": true,
+                "readOnly": false,
+                "minLength": "",
+                "maxLength": "",
+                "multiple": false,
+                "mask": "",
+                "condition": false,
+                "defaultValue": "",
+                "showRequired": true,
+                "necessarilySigning": false,
+                "nonEditable": false,
+                "repeatMinValue": 1,
+                "repeatMaxValue": 0,
+                "physicalPerson": false,
+                "employee": false,
+                "businessman": false,
+                "xpos": 1
+              },
+
+              "elements": [],
+              "elementId": 40722
+            }
+          ],
+          "elementId": 40725
+        }
+      ],
+      "electronicFormData": {
+        "electronicFormId": 25,
+        "note": "",
+        "multiple": false,
+        "horizontal": false,
+        "showRequired": true,
+        "nonEditable": false,
+        "repeatMinValue": 1,
+        "repeatMaxValue": 0
+      }
+    },
+    "printForm": {
+      "code": "корень"
+    },
+    "draftAllowed": true,
+    "esiaTypeId": "3"
+  },
+  "performId": "",
+  "values": [
+    {
+      "code": "Основное",
+      "reportCode": "Основное",
+      "repeat": 0,
+      "elementValues": [
+        {
+          "code": "Основное___Номер",
+          "reportCode": "Номер",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___Группа",
+          "reportCode": "Группа",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___СтудентКорФиоРод",
+          "reportCode": "СтудентКорФиоРод",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___Тема",
+          "reportCode": "Тема",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___РуководительПротокол",
+          "reportCode": "РуководительПротокол",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___КолвоСтраниц",
+          "reportCode": "КолвоСтраниц",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___КолвоСлайдов",
+          "reportCode": "КолвоСлайдов",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___ОценкаРук",
+          "reportCode": "ОценкаРук",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___КолвоПроцентов",
+          "reportCode": "КолвоПроцентов",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___КолвоМинут",
+          "reportCode": "КолвоМинут",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___СтудентКорФио",
+          "reportCode": "СтудентКорФио",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___Оценка",
+          "reportCode": "Оценка",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___Степень",
+          "reportCode": "Степень",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___СтудентФио",
+          "reportCode": "СтудентФио",
+          "repeat": 0,
+          "value": ""
+        },
+        {
+          "code": "Основное___Квалификация",
+          "reportCode": "Квалификация",
+          "repeat": 0,
+          "value": ""
+        }
+      ]
+    }
+  ]
+}

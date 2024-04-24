@@ -1,9 +1,11 @@
 package com.example.controller;
 
+import com.example.dao.DefenseRepository;
 import com.example.dao.PredefenseRepository;
-import com.example.dto.docs.PredefenseDto;
+import com.example.dto.docs.GenerateDto;
 import com.example.dto.docs.example.ApplicationDto;
 import com.example.dto.docs.example.JsonForPrintForm;
+import com.example.model.Defense;
 import com.example.model.Predefense;
 import com.example.service.GenerateService;
 import com.example.service.ReportService;
@@ -27,6 +29,8 @@ public class GenerateController {
     private GenerateService generateService;
     @Autowired
     private PredefenseRepository predefenseRepository;
+    @Autowired
+    private DefenseRepository defenseRepository;
 
     @GetMapping("/controller")
     public ResponseEntity<String> foo() {
@@ -49,35 +53,49 @@ public class GenerateController {
         final ObjectMapper m = new ObjectMapper();
         final String json = m.writeValueAsString(jsonForPrintForm);
 
-        return generateService.getExamplePreview(Long.parseLong(dto.getNumber()), json);
+        return generateService.getPreview(Long.parseLong(dto.getNumber()), 3L, json);
     }
 
     @PostMapping(path = "/generate-predefense", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Resource> generatePredefenseDoc(@RequestBody PredefenseDto dto) throws IOException {
+    public ResponseEntity<Resource> generatePredefenseDoc(@RequestBody GenerateDto dto) throws IOException {
 
-        final JsonForPrintForm jsonForPrintForm = generateService.getJsonForPredefensePrintForm(dto);
+        final JsonForPrintForm jsonForPrintForm = generateService.getJsonForDocPrintForm(dto);
         final ObjectMapper m = new ObjectMapper();
         final String json = m.writeValueAsString(jsonForPrintForm);
-        System.out.println("JSON IS HERE: " + json);
 
-        return generateService.getPredefensePreview(Long.parseLong(dto.getPerformId()), json);
+        return generateService.getPreview(Long.parseLong(dto.getPerformId()), 1L, json);
     }
 
     @PostMapping(path = "/generate-predefense/{id}")
     public ResponseEntity<Resource> generatePredefenseDoc(@PathVariable(value = "id") String id) throws IOException {
-        PredefenseDto dto = new PredefenseDto();
+        GenerateDto dto = new GenerateDto();
         String json = null;
 
         Optional<Predefense> optionalPredefense = predefenseRepository.findById(Integer.parseInt(id));
         if (optionalPredefense.isPresent()) {
-            dto = generateService.fillPredefenseDto(optionalPredefense.get());
+            dto = generateService.fillPredefense(optionalPredefense.get());
 
 
-            final JsonForPrintForm jsonForPrintForm = generateService.getJsonForPredefensePrintForm(dto);
+            final JsonForPrintForm jsonForPrintForm = generateService.getJsonForDocPrintForm(dto);
             final ObjectMapper m = new ObjectMapper();
             json = m.writeValueAsString(jsonForPrintForm);
-            System.out.println("JSON IS HERE: " + json);
         }
-        return generateService.getPredefensePreview(Long.parseLong(dto.getPerformId()), json);
+        return generateService.getPreview(Long.parseLong(dto.getPerformId()), 1L, json);
+    }
+
+    @PostMapping(path = "/generate-defense/{id}")
+    public ResponseEntity<Resource> generateDefenseDoc(@PathVariable(value = "id") String id) throws IOException {
+        GenerateDto dto = new GenerateDto();
+        String json = null;
+
+        Optional<Defense> optionalDefense = defenseRepository.findById(Integer.parseInt(id));
+        if (optionalDefense.isPresent()) {
+            dto = generateService.fillDefense(optionalDefense.get());
+
+            final JsonForPrintForm jsonForPrintForm = generateService.getJsonForDocPrintForm(dto);
+            final ObjectMapper m = new ObjectMapper();
+            json = m.writeValueAsString(jsonForPrintForm);
+        }
+        return generateService.getPreview(Long.parseLong(dto.getPerformId()), 2L, json);
     }
 }

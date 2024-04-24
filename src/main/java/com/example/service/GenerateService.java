@@ -1,9 +1,12 @@
 package com.example.service;
 
-import com.example.dto.docs.PredefenseDto;
+import com.example.dto.docs.GenerateDto;
+import com.example.dto.docs.enums.DefTypes;
+import com.example.dto.docs.enums.Evaluations;
 import com.example.dto.docs.enums.Marks;
 import com.example.dto.docs.enums.PrintFormCodes;
 import com.example.dto.docs.example.*;
+import com.example.model.Defense;
 import com.example.model.Predefense;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -22,10 +25,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class GenerateService {
 
+    private String PREDEFENSE_CFG_JSON_PATH = "C:\\Users\\enazy\\IdeaProjects\\DocFiller_\\src\\main\\resources\\static\\settings\\predefense.json";
+
+    private String DEFENSE_CFG_JSON_PATH = "C:\\Users\\enazy\\IdeaProjects\\DocFiller_\\src\\main\\resources\\static\\settings\\defense.json";
     private final UnaryOperator<String> validationValue = s -> s != null ? s : "";
-
     private ObjectMapper objectMapper = new ObjectMapper();
-
     @Autowired
     private ReportService reportService;
 
@@ -44,12 +48,12 @@ public class GenerateService {
         return jsonForPrintForm;
     }
 
-    public JsonForPrintForm getJsonForPredefensePrintForm(PredefenseDto predefenseDto) {
+    public JsonForPrintForm getJsonForDocPrintForm(GenerateDto generateDto) {
         List<ElementDto> elementsDto = new ArrayList<>();
         List<ElementValueDto> allValuesDto = new ArrayList<>();
         List<ElementDtoForJson> elementsDtoForJsons = new ArrayList<>();
-        recursElementValueDto(predefenseDto.getValues(), allValuesDto);
-        recursElementDto(predefenseDto.getSettings().getElectronicForm().getElements(), elementsDto);
+        recursElementValueDto(generateDto.getValues(), allValuesDto);
+        recursElementDto(generateDto.getSettings().getElectronicForm().getElements(), elementsDto);
 
         setValueElementValueDtoByElementDto(elementsDto, allValuesDto, elementsDtoForJsons);
         JsonForPrintForm jsonForPrintForm = new JsonForPrintForm();
@@ -172,10 +176,10 @@ public class GenerateService {
         return blocks;
     }
 
-    public ResponseEntity<Resource> getExamplePreview(Long number, String jsonString) throws IOException {
-        log.debug("getExamplePreview(): Сохраняется пример отчета...");
+    public ResponseEntity<Resource> getPreview(Long number, Long typeId, String jsonString) throws IOException {
+        log.debug("getPredefensePreview(): Сохраняем заполненный документ...");
         reportService.upload(
-                3L,
+                typeId,
                 number + "-preview.pdf",
                 number,
                 jsonString
@@ -189,30 +193,12 @@ public class GenerateService {
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<Resource> getPredefensePreview(Long number, String jsonString) throws IOException {
-        log.debug("getPredefensePreview(): Сохраняем заполненный протокол предзащиты...");
-        reportService.upload(
-                1L,
-                number + "-preview.pdf",
-                number,
-                jsonString
-        );
-
-        /*log.debug("getApplicationPreview(): Скачиваем и возвращаем пдф...");
-        return download(
-                number
-        );*/
-
-        return ResponseEntity.ok().build();
-    }
-
-
-    public PredefenseDto fillPredefenseDto(Predefense predefense) {
-        PredefenseDto result;
+    public GenerateDto fillPredefense(Predefense predefense) {
+        GenerateDto result;
         try {
 
-            File settingsFile = new File("C:\\Users\\enazy\\IdeaProjects\\DocFiller_\\src\\main\\resources\\static\\settings\\predefense.json");
-            result = objectMapper.readValue(settingsFile, PredefenseDto.class);
+            File settingsFile = new File(PREDEFENSE_CFG_JSON_PATH);
+            result = objectMapper.readValue(settingsFile, GenerateDto.class);
 
             ElementValueDto mainValue = result.getValues().get(0);
 
@@ -235,6 +221,69 @@ public class GenerateService {
                     }
                 }
                 result.setPerformId(String.valueOf(predefense.getPerform().getId()));
+            }
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Невозможно получить файл конфигурации печатной формы");
+        }
+
+        return result;
+    }
+
+    public GenerateDto fillDefense(Defense defense) {
+        GenerateDto result;
+        try {
+
+            File settingsFile = new File(DEFENSE_CFG_JSON_PATH);
+            result = objectMapper.readValue(settingsFile, GenerateDto.class);
+
+            ElementValueDto mainValue = result.getValues().get(0);
+
+            for (ElementValueDto elementValue : mainValue.getElementValues()) {
+                switch (elementValue.getReportCode()) {
+                    case ("Номер") -> {
+                        elementValue.setValue(defense.getPerform().getId().toString());
+                    }
+                    case ("Группа") -> {
+                        elementValue.setValue(defense.getPerform().getGroupNumber().toString());
+                    }
+                    case ("СтудентКорФио") -> {
+                        elementValue.setValue(defense.getPerform().getShortFio());
+                    }
+                    case ("Тема") -> {
+                        elementValue.setValue(defense.getPerform().getTopic());
+                    }
+                    case ("РуководительПротокол") -> {
+                        elementValue.setValue(defense.getPerform().getSupervisorFioProtocol());
+                    }
+                    case ("КолвоСтраниц") -> {
+                        elementValue.setValue(defense.getPages().toString());
+                    }
+                    case ("КолвоСлайдов") -> {
+                        elementValue.setValue(defense.getSlides().toString());
+                    }
+                    case ("ОценкаРук") -> {
+                        elementValue.setValue(Marks.findTextByCode(Integer.valueOf(defense.getSupervisorMark())));
+                    }
+                    case ("КолвоПроцентов") -> {
+                        elementValue.setValue(defense.getOriginality().toString());
+                    }
+                    case ("КолвоМинут") -> {
+                        elementValue.setValue(defense.getDuration().toString());
+                    }
+                    case ("Оценка") -> {
+                        elementValue.setValue(Marks.findTextByCode(Integer.valueOf(defense.getMark())));
+                    }
+                    case ("Степень") -> {
+                        elementValue.setValue(Evaluations.findAccusByText(defense.getEvaluation()));
+                    }
+                    case ("СтудентФио") -> {
+                        elementValue.setValue(defense.getPerform().getFullFio());
+                    }
+                    case ("Квалификация") -> {
+                        elementValue.setValue(DefTypes.findQualificationByType(defense.getType()));
+                    }
+                }
+                result.setPerformId(String.valueOf(defense.getPerform().getId()));
             }
         } catch (IOException e) {
             throw new IllegalArgumentException("Невозможно получить файл конфигурации печатной формы");
