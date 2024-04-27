@@ -2,18 +2,25 @@ package com.example.controller;
 
 import com.example.dao.DefenseRepository;
 import com.example.dao.PerformRepository;
+import com.example.dto.docs.GenerateDto;
+import com.example.dto.docs.example.JsonForPrintForm;
 import com.example.model.Defense;
 import com.example.model.Perform;
 import com.example.service.CommissionMemberService;
 import com.example.service.DefenseService;
+import com.example.service.GenerateService;
 import com.example.service.PerformService;
 import com.example.utils.FioUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.Optional;
 
@@ -31,6 +38,8 @@ public class DefenseController {
     private PerformRepository performRepository;
     @Autowired
     private CommissionMemberService commissionMemberService;
+    @Autowired
+    private GenerateService generateService;
 
     @GetMapping
     public String defensesPage(Model model) {
@@ -186,5 +195,21 @@ public class DefenseController {
         } catch (EmptyResultDataAccessException | IllegalArgumentException ignored) {
         }
         return "redirect:/defenses";
+    }
+
+    @PostMapping(path = "/{id}/generate")
+    public ResponseEntity<Resource> generateDefenseDoc(@PathVariable(value = "id") String id) throws IOException {
+        GenerateDto dto = new GenerateDto();
+        String json = null;
+
+        Optional<Defense> optionalDefense = defenseRepository.findById(Integer.parseInt(id));
+        if (optionalDefense.isPresent()) {
+            dto = generateService.fillDefense(optionalDefense.get());
+
+            final JsonForPrintForm jsonForPrintForm = generateService.getJsonForDocPrintForm(dto);
+            final ObjectMapper m = new ObjectMapper();
+            json = m.writeValueAsString(jsonForPrintForm);
+        }
+        return generateService.getPreview(Long.parseLong(dto.getPerformId()), 2L, json);
     }
 }

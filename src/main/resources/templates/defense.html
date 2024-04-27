@@ -10,10 +10,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+    <!--TOASTR for messages-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     <style>
         p {
         font-size: 20px;
     }
+
     </style>
 
     <title>Защиты студентов</title>
@@ -98,12 +105,41 @@
                     <p th:text="'Оценка руководителя ВКР: ' + ${defense.supervisorMark}"/>
                     <p th:text="'Другие документы: ' + ${defense.otherDocuments}"/>
 
-                    <a th:href="@{/defenses/{id}/edit(id=${defense.id})}" class="btn btn-primary">Редактировать информацию о защите</a>
+                    <a th:href="@{/defenses/{id}/edit(id=${defense.id})}" class="btn btn-primary">Редактировать
+                        информацию о защите</a>
+                    </br>
+                    </br>
+
+                    <form th:action="@{/defenses/{id}/generate(id=${defense.id})}" method="POST">
+                        <button type="submit" class="btn btn-primary">Сгенерировать документ</button>
+                    </form>
+                    </br>
+                    </br>
+
+                    <form action="/report" method="GET">
+                        <input type="hidden" th:value="${defense.perform.id}" name="dealId">
+                        <input type="hidden" value="2" name="typeId">
+                        <button type="submit" class="btn btn-info" id="downloadButton" disabled>Скачать документ</button>
+                    </form>
                 </div>
+
+
             </div>
         </div>
     </div>
 </div>
+
+<script th:if="${action == 'saved'}">
+   $(document).ready(function() {
+       toastr.success('Заполненный документ успешно создан!', 'Успех');
+       document.getElementById("downloadButton").disabled = false;
+   });
+</script>
+
+<script th:inline="javascript">
+    toastr.options.closeButton = true;
+    toastr.options.positionClass = 'toast-bottom-right';
+</script>
 
 
 </body>

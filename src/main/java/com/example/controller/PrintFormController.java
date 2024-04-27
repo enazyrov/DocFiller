@@ -41,7 +41,7 @@ public class PrintFormController {
     public String upload(@RequestParam MultipartFile file, @RequestParam String typeId, RedirectAttributes redirectAttributes) {
         try {
             printFormService.upload(file, typeId);
-            redirectAttributes.addFlashAttribute("action", "save");
+            redirectAttributes.addFlashAttribute("action", "saved");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("action", "error");
         }

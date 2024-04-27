@@ -106,17 +106,17 @@
 
 </div>
 
-<script th:if="${action == 'save'}">
+<script th:if="${action == 'saved'}">
         $(document).ready(function() {
             toastr.success('Печатная форма успешно загружена!', 'Успех');
         });
-    </script>
+</script>
 
 <script th:if="${action == 'error'}">
         $(document).ready(function() {
             toastr.error('Ошибка при загрузке печатной формы.', 'Ошибка');
         });
-    </script>
+</script>
 
 <script th:inline="javascript">
     toastr.options.closeButton = true;

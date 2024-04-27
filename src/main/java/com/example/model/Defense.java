@@ -31,7 +31,7 @@ public class Defense {
     private String endTime;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "perform_id", nullable = false)
+    @JoinColumn(name = "perform", nullable = false)
     private Perform perform;
 
     @Column(name = "chairman_fio")

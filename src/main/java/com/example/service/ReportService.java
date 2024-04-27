@@ -24,8 +24,8 @@ public class ReportService extends ResponseService {
     private final ReportRepository reportRepository;
     private final PrintFormService printFormService;
 
-    public Report findByDealIdAndTypeId(Long dealId, Long typeId){
-        return reportRepository.findByDealIdAndTypeId(dealId, typeId).orElseThrow();
+    public Optional<Report> findByDealIdAndTypeId(Long dealId, Long typeId){
+        return Optional.of(reportRepository.findByDealIdAndTypeId(dealId, typeId).orElseThrow());
     }
 
     public Optional<Report> findById(Long repId) {

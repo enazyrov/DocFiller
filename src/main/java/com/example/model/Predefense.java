@@ -24,7 +24,7 @@ public class Predefense {
     private String mark;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "perform_id", nullable = false)
+    @JoinColumn(name = "perform", nullable = false)
     private Perform perform;
 
     @Column(name = "chairman_fio")
