@@ -869,19 +869,19 @@ public class PrintFormService {
             printFormRepository.deleteById(existingPrintForm.getId());
         }
 
-        PrintForm createdFile = new PrintForm();
+        PrintForm createdPrintForm = new PrintForm();
 
-        createdFile.setFileName(resource.getOriginalFilename());
-        createdFile.setName(Objects.requireNonNull(resource.getOriginalFilename()).substring(0, resource.getOriginalFilename().lastIndexOf('.')));
-        createdFile.setCreateDate(new Date());
-        createdFile.setTypeId(Long.valueOf(typeId));
+        createdPrintForm.setFileName(resource.getOriginalFilename());
+        createdPrintForm.setName(Objects.requireNonNull(resource.getOriginalFilename()).substring(0, resource.getOriginalFilename().lastIndexOf('.')));
+        createdPrintForm.setCreateDate(new Date());
+        createdPrintForm.setTypeId(Long.valueOf(typeId));
 
         String uuid = FileManager.generateUuid(resource.getName());
-        createdFile.setUuid(uuid);
-        createdFile.setSize(resource.getSize());
-        createdFile = printFormRepository.save(createdFile);
+        createdPrintForm.setUuid(uuid);
+        createdPrintForm.setSize(resource.getSize());
+        createdPrintForm = printFormRepository.save(createdPrintForm);
         FileManager.upload(resource.getBytes(), uuid, true);
 
-        return createdFile;
+        return createdPrintForm;
     }
 }

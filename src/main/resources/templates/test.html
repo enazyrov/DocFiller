@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+<body>
+
+<h1 style="background-color: red;">Hello World!</h1>
+<p>This is a paragraph.</p>
+<button type="button" onclick="myFunction()">Click!</button>
+
+<p id="demo"></p>
+
+
+
+
+
+<button onclick="info()">Info message</button>
+<button onclick="success()">Success message</button>
+<button onclick="error()">Error message</button>
+<button onclick="warning()">Warning message</button>
+
+
+
+
+<script type="text/javascript">
+    toastr.options.closeButton = true;
+    toastr.options.positionClass = 'toast-bottom-right';
+
+    function myFunction() {
+        document.getElementById("demo").innerHTML = "HELLO, WORLD!";
+    }
+
+    function info() {
+        toastr.info('INFORMATION!')
+    }
+
+    function success() {
+        toastr.success('SUCCESS!')
+    }
+
+    function error() {
+        toastr.error('SUCCESS!')
+    }
+    function warning() {
+        toastr.warning('SUCCESS!', {timeout: 5000})
+    }
+
+    $(document).ready(function() {
+        var action = $('#action').val();
+        if (action === 'save') {
+            toastr.success('YEEEAAAHH');
+        } else {
+            toastr.error('FUCK UP!');
+        }
+    });
+
+</script>
+
+
+</body>
+</html>

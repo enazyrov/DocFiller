@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.model.Review;
 import com.example.service.ReviewService;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -31,6 +31,14 @@ public class MainController {
     @RequestMapping(path = "/home")
     public String homePage(Model model) {
         return "home";
+    }
+    @RequestMapping(path = "/test")
+    public String testPage(Model model) {
+        return "test";
+    }
+    @RequestMapping(path = "/print-forms")
+    public String printFormsUploadPage(Model model) {
+        return "printForms";
     }
 
     @RequestMapping(path = "/profile")
