@@ -3,53 +3,76 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <style>
+        p {
+        font-size: 20px;
+    }
+    </style>
 
     <title>Защиты студентов</title>
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li><a href="/home">Главная</a></li>
-                <li><a href="/performs">Сведения о защите</a></li>
-                <li><a href="/performs/newPerform">Добавить сведения о защите</a></li>
-                <li><a href="/predefenses">Предзащиты</a></li>
-                <li><a href="/predefenses/newPredefense">Добавить предзащиту</a></li>
-                <li class="active"><a href="/defenses">Защиты</a></li>
-                <li><a href="/defenses/newDefense">Добавить защиту</a></li>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/home">Главная</a>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPerform" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="true">Сведения о защите</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/performs">Список существующих</a>
+                    <a class="dropdown-item" href="/performs/newPerform">Добавить данные о новом студенте</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPredefense" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="true">Предзащиты</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/predefenses">Список предзащит</a>
+                    <a class="dropdown-item" href="/predefenses/newPredefense">Добавить новый протокол</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDefense" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="true">Защиты</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/defenses">Список защит</a>
+                    <a class="dropdown-item" href="/defenses/newDefense">Добавить новый протокол</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/print-forms">Загрузить печатные формы</a>
+            </li>
+        </ul>
+
+        <div class="navbar-collapse collapse w-50 rder-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-link"><a class="nav-link" href="/profile"> Профиль</a></li>
+                <li class="nav-link"><a class="nav-link" href="/registration"> Регистрация</a></li>
+                <li class="nav-link"><a class="nav-link" href="/login">Войти</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/registration"> Регистрация</a></li>
-                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>
             </ul>
         </div>
     </div>
 </nav>
+
+
 <br/>
 <div class="container-fluid text-center">
-    <div class="row content">
-        <div class="col-sm-8 text-left">
-            <div>
-                <div class="well">
-                    <div class="panel-body">
-                        <h1>Защиты</h1>
-                        Здесь будет информация о защитах студентов.
-                    </div>
-                </div>
-            </div>
-
+    <div class="card text-center">
+        <div class="card-header">
+            Защита
+        </div>
+        <div class="card-body">
             <div class="container-xxl mt-3 mb-5">
                 <h2>Информация о защите</h2>
 
@@ -75,12 +98,13 @@
                     <p th:text="'Оценка руководителя ВКР: ' + ${defense.supervisorMark}"/>
                     <p th:text="'Другие документы: ' + ${defense.otherDocuments}"/>
 
-                    <a th:href="@{/defenses/{id}/edit(id=${defense.id})}">Редактировать</a>
+                    <a th:href="@{/defenses/{id}/edit(id=${defense.id})}" class="btn btn-primary">Редактировать информацию о защите</a>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
+
+
 </body>
 </html>
