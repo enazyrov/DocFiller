@@ -53,7 +53,6 @@
                 <li class="nav-link"><a class="nav-link" href="/profile">Профиль</a></li>
             </ul>
             <ul class="navbar-nav ml-auto" sec:authorize="!isAuthenticated()">
-                <li class="nav-link"><a class="nav-link" href="/registration">Регистрация</a></li>
                 <li class="nav-link"><a class="nav-link" href="/login">Войти</a></li>
             </ul>
         </div>
@@ -71,19 +70,12 @@
             <h1 class="card-title">Добро пожаловать!</h1>
             <p class="card-text">Это веб-приложение было написано Назыровым Э. в качестве <b>дипломной работы</b> для
                 автоматического заполнения документов <br/>
-                по государственной итоговой аттестации студентов.
-            <p><img src="static/images/usage.png" alt="Как использовать" class="img-fluid"></p>
-            <p><img src="C:/Users/enazy/IdeaProjects/DocFiller_/src/main/resources/static/images/usage.png"
-                    alt="Как использовать" class="img-fluid"></p>
-            <p><img src="src/main/resources/static/images/usage.png" alt="Как использовать" class="img-fluid"></p>
-            <p><img src="images/usage.png" alt="Как использовать" class="img-fluid"></p>
-
-            <p><img src="static/images/usage.png" alt="Как использовать" th:src="@{images/usage.png}" class="img-fluid"></p>
-            <p><img src="C:/Users/enazy/IdeaProjects/DocFiller_/src/main/resources/static/images/usage.png"
-                    alt="Как использовать" th:src="@{images/usage.png}" class="img-fluid"></p>
-            <p><img src="src/main/resources/static/images/usage.png" alt="Как использовать" th:src="@{images/usage.png}"
-                    class="img-fluid"></p>
-            <p><img src="images/usage.png" alt="Как использовать" th:src="@{images/usage.png}" class="img-fluid"></p>
+                по государственной итоговой аттестации студентов.</p>
+            </br>
+            <p><img
+                    class="img-fluid"
+                    src="https://imageup.ru/img227/4814891/usage.png"
+                    alt="How to use website"/></p>
 
             <a href="/print-forms" class="btn btn-primary">Вперед!</a>
         </div>
