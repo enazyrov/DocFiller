@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="ru">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -20,21 +20,24 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPerform" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Сведения о защите</a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPerform" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="true">Сведения о защите</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/performs">Список существующих</a>
                     <a class="dropdown-item" href="/performs/newPerform">Добавить данные о новом студенте</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPredefense" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Предзащиты</a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPredefense" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="true">Предзащиты</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/predefenses">Список предзащит</a>
                     <a class="dropdown-item" href="/predefenses/newPredefense">Добавить новый протокол</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDefense" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Защиты</a>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDefense" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="true">Защиты</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/defenses">Список защит</a>
                     <a class="dropdown-item" href="/defenses/newDefense">Добавить новый протокол</a>
@@ -46,11 +49,12 @@
         </ul>
 
         <div class="navbar-collapse collapse w-50 rder-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-link"><a class="nav-link" href="/profile"> Профиль</a></li>
-                <li class="nav-link"><a class="nav-link" href="/registration"> Регистрация</a></li>
-                <li class="nav-link"><a class="nav-link" href="/login">Войти</a></li>
+            <ul class="navbar-nav ml-auto" sec:authorize="isAuthenticated()">
+                <li class="nav-link"><a class="nav-link" href="/profile">Профиль</a></li>
             </ul>
+            <ul class="navbar-nav ml-auto" sec:authorize="!isAuthenticated()">
+                <li class="nav-link"><a class="nav-link" href="/registration">Регистрация</a></li>
+                <li class="nav-link"><a class="nav-link" href="/login">Войти</a></li>
             </ul>
         </div>
     </div>
@@ -65,10 +69,22 @@
         </div>
         <div class="card-body">
             <h1 class="card-title">Добро пожаловать!</h1>
-            <p class="card-text">Это веб-приложение было написано Назыровым Э. в качестве <b>дипломной работы</b> для автоматического заполнения документов <br/>
-                    по государственной итоговой аттестации студентов.
-                <p><img src="images/usage.png" alt="Как использовать"></p>
-            </p>
+            <p class="card-text">Это веб-приложение было написано Назыровым Э. в качестве <b>дипломной работы</b> для
+                автоматического заполнения документов <br/>
+                по государственной итоговой аттестации студентов.
+            <p><img src="static/images/usage.png" alt="Как использовать" class="img-fluid"></p>
+            <p><img src="C:/Users/enazy/IdeaProjects/DocFiller_/src/main/resources/static/images/usage.png"
+                    alt="Как использовать" class="img-fluid"></p>
+            <p><img src="src/main/resources/static/images/usage.png" alt="Как использовать" class="img-fluid"></p>
+            <p><img src="images/usage.png" alt="Как использовать" class="img-fluid"></p>
+
+            <p><img src="static/images/usage.png" alt="Как использовать" th:src="@{images/usage.png}" class="img-fluid"></p>
+            <p><img src="C:/Users/enazy/IdeaProjects/DocFiller_/src/main/resources/static/images/usage.png"
+                    alt="Как использовать" th:src="@{images/usage.png}" class="img-fluid"></p>
+            <p><img src="src/main/resources/static/images/usage.png" alt="Как использовать" th:src="@{images/usage.png}"
+                    class="img-fluid"></p>
+            <p><img src="images/usage.png" alt="Как использовать" th:src="@{images/usage.png}" class="img-fluid"></p>
+
             <a href="/print-forms" class="btn btn-primary">Вперед!</a>
         </div>
     </div>

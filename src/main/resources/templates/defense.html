@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="ru">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -62,11 +62,12 @@
         </ul>
 
         <div class="navbar-collapse collapse w-50 rder-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-link"><a class="nav-link" href="/profile"> Профиль</a></li>
-                <li class="nav-link"><a class="nav-link" href="/registration"> Регистрация</a></li>
-                <li class="nav-link"><a class="nav-link" href="/login">Войти</a></li>
+            <ul class="navbar-nav ml-auto" sec:authorize="isAuthenticated()">
+                <li class="nav-link"><a class="nav-link" href="/profile">Профиль</a></li>
             </ul>
+            <ul class="navbar-nav ml-auto" sec:authorize="!isAuthenticated()">
+                <li class="nav-link"><a class="nav-link" href="/registration">Регистрация</a></li>
+                <li class="nav-link"><a class="nav-link" href="/login">Войти</a></li>
             </ul>
         </div>
     </div>

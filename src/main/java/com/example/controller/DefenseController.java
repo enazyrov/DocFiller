@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -198,7 +199,7 @@ public class DefenseController {
     }
 
     @PostMapping(path = "/{id}/generate")
-    public ResponseEntity<Resource> generateDefenseDoc(@PathVariable(value = "id") String id) throws IOException {
+    public String generateDefenseDoc(@PathVariable(value = "id") String id, RedirectAttributes redirectAttributes) throws IOException {
         GenerateDto dto = new GenerateDto();
         String json = null;
 
@@ -210,6 +211,8 @@ public class DefenseController {
             final ObjectMapper m = new ObjectMapper();
             json = m.writeValueAsString(jsonForPrintForm);
         }
-        return generateService.getPreview(Long.parseLong(dto.getPerformId()), 2L, json);
+        generateService.getPreview(Long.parseLong(dto.getPerformId()), 2L, json);
+        redirectAttributes.addFlashAttribute("action", "saved");
+        return "redirect:/defenses/{id}";
     }
 }
