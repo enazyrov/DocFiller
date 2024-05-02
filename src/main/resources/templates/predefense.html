@@ -36,7 +36,7 @@
                    aria-haspopup="true" aria-expanded="true">Сведения о защите</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/performs">Список существующих</a>
-                    <a class="dropdown-item" href="/performs/newPerform">Добавить данные о новом студенте</a>
+                    <a class="dropdown-item" href="/performs/newPerform" sec:authorize="hasRole('ADMIN')">Добавить данные о новом студенте</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -44,7 +44,7 @@
                    aria-haspopup="true" aria-expanded="true">Предзащиты</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/predefenses">Список предзащит</a>
-                    <a class="dropdown-item" href="/predefenses/newPredefense">Добавить новый протокол</a>
+                    <a class="dropdown-item" href="/predefenses/newPredefense" sec:authorize="hasRole('ADMIN')">Добавить новый протокол</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -52,7 +52,7 @@
                    aria-haspopup="true" aria-expanded="true">Защиты</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="/defenses">Список защит</a>
-                    <a class="dropdown-item" href="/defenses/newDefense">Добавить новый протокол</a>
+                    <a class="dropdown-item" href="/defenses/newDefense" sec:authorize="hasRole('ADMIN')">Добавить новый протокол</a>
                 </div>
             </li>
             <li class="nav-item">

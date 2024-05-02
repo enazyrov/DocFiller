@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +58,7 @@ public class DefenseController {
 
     @GetMapping(path = "/{id}/edit")
     public String editDefensePage(@PathVariable(value="id") String id, Model model) {
-        Optional<Defense> optionalDefense = defenseRepository.findById(Integer.parseInt(id));
+        Optional<Defense> optionalDefense = defenseRepository.findById(Long.parseLong(id));
         if (optionalDefense.isPresent()) {
             Defense defense = optionalDefense.get();
             model.addAttribute("defense", defense);
@@ -69,11 +70,11 @@ public class DefenseController {
 
 
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(path = "/newDefense/submit")
     public String createPerform(@RequestParam String protocolNumber,
                                 @RequestParam String type,
-                                @RequestParam String performId,
+                                @RequestParam String perform,
                                 @RequestParam String date,
                                 @RequestParam String beginTime,
                                 @RequestParam String endTime,
@@ -104,7 +105,7 @@ public class DefenseController {
         defense.setEvaluation(evaluation);
         defense.setMark(mark);
 
-        Optional<Perform> optionalPerform = performRepository.findById(Integer.parseInt(performId));
+        Optional<Perform> optionalPerform = performRepository.findById(Long.parseLong(perform));
         optionalPerform.ifPresent(defense::setPerform);
 
         defense.setChairmanFio(chairmanFio);
@@ -126,7 +127,7 @@ public class DefenseController {
 
     @GetMapping(path = {"/{id}"})
     public String getDefense(@PathVariable(value = "id") String id, Model model) {
-        Optional<Defense> optionalDefense = defenseRepository.findById(Integer.parseInt(id));
+        Optional<Defense> optionalDefense = defenseRepository.findById(Long.parseLong(id));
         if (optionalDefense.isPresent()) {
             Defense defense = optionalDefense.get();
             model.addAttribute("defense", defense);
@@ -154,7 +155,7 @@ public class DefenseController {
                               @RequestParam String supervisorMark,
                               @RequestParam String otherDocuments,
                               @RequestParam String secretaryFio) {
-        Optional<Defense> optionalDefense = defenseRepository.findById(Integer.parseInt(id));
+        Optional<Defense> optionalDefense = defenseRepository.findById(Long.parseLong(id));
         if (optionalDefense.isPresent()) {
             Defense defense = optionalDefense.get();
 
@@ -187,11 +188,11 @@ public class DefenseController {
         } else return "redirect:/defenses";
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(path = "/delete")
     public String deleteDefense(@RequestParam(value = "deleteButton") String id) {
         try {
-            defenseRepository.deleteById(Integer.parseInt(id));
+            defenseRepository.deleteById(Long.parseLong(id));
             System.out.println("The defense with id " + id + " was deleted");
         } catch (EmptyResultDataAccessException | IllegalArgumentException ignored) {
         }
@@ -203,7 +204,7 @@ public class DefenseController {
         GenerateDto dto = new GenerateDto();
         String json = null;
 
-        Optional<Defense> optionalDefense = defenseRepository.findById(Integer.parseInt(id));
+        Optional<Defense> optionalDefense = defenseRepository.findById(Long.parseLong(id));
         if (optionalDefense.isPresent()) {
             dto = generateService.fillDefense(optionalDefense.get());
 

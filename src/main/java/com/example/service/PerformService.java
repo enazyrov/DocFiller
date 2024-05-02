@@ -28,7 +28,7 @@ public class PerformService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         performRepository.deleteById(id);
     }
 }

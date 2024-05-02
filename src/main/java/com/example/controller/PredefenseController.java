@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +58,7 @@ public class PredefenseController {
 
     @GetMapping(path = "/{id}/edit")
     public String editPredefensePage(@PathVariable(value="id") String id, Model model) {
-        Optional<Predefense> optionalPredefense = predefenseRepository.findById(Integer.parseInt(id));
+        Optional<Predefense> optionalPredefense = predefenseRepository.findById(Long.parseLong(id));
         if (optionalPredefense.isPresent()) {
             Predefense predefense = optionalPredefense.get();
             model.addAttribute("predefense", predefense);
@@ -67,9 +68,10 @@ public class PredefenseController {
         return "editPredefense";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(path = "/newPredefense/submit")
     public String createPredefense(@RequestParam String type,
-                                   @RequestParam String performId,
+                                   @RequestParam String perform,
                                    @RequestParam String date,
                                    @RequestParam String mark,
                                    @RequestParam String chairmanFio) {
@@ -77,7 +79,7 @@ public class PredefenseController {
         Predefense predefense = new Predefense();
         predefense.setType(type);
 
-        Optional<Perform> optionalPerform = performRepository.findById(Integer.parseInt(performId));
+        Optional<Perform> optionalPerform = performRepository.findById(Long.parseLong(perform));
         optionalPerform.ifPresent(predefense::setPerform);
 
         predefense.setDate(Date.valueOf(date));
@@ -89,7 +91,7 @@ public class PredefenseController {
 
     @GetMapping(path = {"/{id}"})
     public String getPredefense(@PathVariable(value = "id") String id, Model model) {
-        Optional<Predefense> optionalPredefense = predefenseRepository.findById(Integer.parseInt(id));
+        Optional<Predefense> optionalPredefense = predefenseRepository.findById(Long.parseLong(id));
         if (optionalPredefense.isPresent()) {
             Predefense predefense = optionalPredefense.get();
             model.addAttribute("predefense", predefense);
@@ -105,7 +107,7 @@ public class PredefenseController {
                                  @RequestParam String mark,
                                  @RequestParam String chairmanFio) {
 
-        Optional<Predefense> optionalPredefense = predefenseRepository.findById(Integer.parseInt(id));
+        Optional<Predefense> optionalPredefense = predefenseRepository.findById(Long.parseLong(id));
         if (optionalPredefense.isPresent()) {
             Predefense predefense = optionalPredefense.get();
             predefense.setType(type);
@@ -118,10 +120,11 @@ public class PredefenseController {
         } else return "redirect:/predefenses";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(path = "/delete")
     public String deletePredefense(@RequestParam(value = "deleteButton") String id) {
         try {
-            predefenseRepository.deleteById(Integer.parseInt(id));
+            predefenseRepository.deleteById(Long.parseLong(id));
             System.out.println("The predefense with id " + id + " was deleted");
         } catch (EmptyResultDataAccessException | IllegalArgumentException ignored) {
         }
@@ -133,7 +136,7 @@ public class PredefenseController {
         GenerateDto dto = new GenerateDto();
         String json = null;
 
-        Optional<Predefense> optionalPredefense = predefenseRepository.findById(Integer.parseInt(id));
+        Optional<Predefense> optionalPredefense = predefenseRepository.findById(Long.parseLong(id));
         if (optionalPredefense.isPresent()) {
             dto = generateService.fillPredefense(optionalPredefense.get());
 

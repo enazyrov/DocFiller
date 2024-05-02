@@ -13,7 +13,7 @@ public class Defense {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "protocol_number")
     private Integer protocolNumber;

@@ -12,7 +12,7 @@ import java.util.List;
 public class Predefense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column
     private String type;

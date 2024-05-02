@@ -71,7 +71,7 @@ public class GenerateController {
         GenerateDto dto = new GenerateDto();
         String json = null;
 
-        Optional<Predefense> optionalPredefense = predefenseRepository.findById(Integer.parseInt(id));
+        Optional<Predefense> optionalPredefense = predefenseRepository.findById(Long.parseLong(id));
         if (optionalPredefense.isPresent()) {
             dto = generateService.fillPredefense(optionalPredefense.get());
 
@@ -88,7 +88,7 @@ public class GenerateController {
         GenerateDto dto = new GenerateDto();
         String json = null;
 
-        Optional<Defense> optionalDefense = defenseRepository.findById(Integer.parseInt(id));
+        Optional<Defense> optionalDefense = defenseRepository.findById(Long.parseLong(id));
         if (optionalDefense.isPresent()) {
             dto = generateService.fillDefense(optionalDefense.get());
 

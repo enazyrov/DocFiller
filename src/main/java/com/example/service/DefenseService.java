@@ -18,7 +18,7 @@ public class DefenseService {
     @Autowired
     private DefenseRepository defenseRepository;
 
-    public Optional<Defense> find(Integer id) {
+    public Optional<Defense> find(Long id) {
         return Optional.of(defenseRepository.getById(id));
     }
     public void save(Defense defense) {
@@ -32,7 +32,7 @@ public class DefenseService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         defenseRepository.deleteById(id);
     }
 }

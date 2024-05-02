@@ -8,6 +8,7 @@ import com.example.service.PerformService;
 import com.example.utils.FioUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,9 +40,34 @@ public class PermormController {
         return "newPerform";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping(path = "/newPerform/submit")
+    public String createPerform(@RequestParam String type,
+                                @RequestParam String fullFio,
+                                @RequestParam String shortFioGen,
+                                @RequestParam String groupNumber,
+                                @RequestParam String topic,
+                                @RequestParam String advisorFioProtocol,
+                                @RequestParam String supervisorFioProtocol,
+                                @RequestParam String supervisorFioReport) {
+
+        Perform perform = new Perform();
+        perform.setType(type);
+        perform.setFullFio(fullFio);
+        perform.setShortFioGen(shortFioGen);
+        perform.setShortFio(FioUtils.getShortFio(fullFio));
+        perform.setGroupNumber(Integer.valueOf(groupNumber));
+        perform.setTopic(topic);
+        perform.setAdvisorFioProtocol(advisorFioProtocol);
+        perform.setSupervisorFioProtocol(supervisorFioProtocol);
+        perform.setSupervisorFioReport(supervisorFioReport);
+        performRepository.save(perform);
+        return "redirect:/performs";
+    }
+
     @GetMapping(path = "/{id}/edit")
     public String editPerformPage(@PathVariable(value="id") String id, Model model) {
-        Optional<Perform> optionalPerform = performRepository.findById(Integer.parseInt(id));
+        Optional<Perform> optionalPerform = performRepository.findById(Long.parseLong(id));
         if (optionalPerform.isPresent()) {
             Perform perform = optionalPerform.get();
             model.addAttribute("perform", perform);
@@ -56,7 +82,7 @@ public class PermormController {
 
     @GetMapping(value = {"/{id}"})
     public String getPerform(@PathVariable(value = "id") String id, Model model) {
-        Optional<Perform> optionalPerform = performRepository.findById(Integer.parseInt(id));
+        Optional<Perform> optionalPerform = performRepository.findById(Long.parseLong(id));
         if (optionalPerform.isPresent()) {
             Perform perform = optionalPerform.get();
             model.addAttribute("perform", perform);
@@ -77,7 +103,7 @@ public class PermormController {
                               @RequestParam String supervisorFioProtocol,
                               @RequestParam String supervisorFioReport) {
 
-        Optional<Perform> optionalPerform = performRepository.findById(Integer.parseInt(id));
+        Optional<Perform> optionalPerform = performRepository.findById(Long.parseLong(id));
         if (optionalPerform.isPresent()) {
             Perform perform = optionalPerform.get();
             perform.setType(type);
@@ -95,10 +121,11 @@ public class PermormController {
         } else return "redirect:/performs";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(path = "/delete")
     public String deletePerform(@RequestParam(value = "deleteButton") String id) {
         try {
-            performRepository.deleteById(Integer.parseInt(id));
+            performRepository.deleteById(Long.parseLong(id));
             System.out.println("The perform with id " + id + " was deleted");
         } catch (EmptyResultDataAccessException | IllegalArgumentException ignored) {
         }

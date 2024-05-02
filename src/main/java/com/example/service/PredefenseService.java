@@ -25,7 +25,7 @@ public class PredefenseService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         predefenseRepository.deleteById(id);
     }
 
