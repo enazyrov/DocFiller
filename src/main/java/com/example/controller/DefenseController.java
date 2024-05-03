@@ -190,11 +190,13 @@ public class DefenseController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(path = "/delete")
-    public String deleteDefense(@RequestParam(value = "deleteButton") String id) {
+    public String deleteDefense(@RequestParam(value = "deleteButton") String id, RedirectAttributes redirectAttributes) {
         try {
             defenseRepository.deleteById(Long.parseLong(id));
+            redirectAttributes.addFlashAttribute("action", "deleted");
             System.out.println("The defense with id " + id + " was deleted");
-        } catch (EmptyResultDataAccessException | IllegalArgumentException ignored) {
+        } catch (EmptyResultDataAccessException | IllegalArgumentException ex) {
+            throw new IllegalArgumentException(ex);
         }
         return "redirect:/defenses";
     }

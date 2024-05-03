@@ -122,11 +122,13 @@ public class PredefenseController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(path = "/delete")
-    public String deletePredefense(@RequestParam(value = "deleteButton") String id) {
+    public String deletePredefense(@RequestParam(value = "deleteButton") String id, RedirectAttributes redirectAttributes) {
         try {
             predefenseRepository.deleteById(Long.parseLong(id));
+            redirectAttributes.addFlashAttribute("action", "deleted");
             System.out.println("The predefense with id " + id + " was deleted");
-        } catch (EmptyResultDataAccessException | IllegalArgumentException ignored) {
+        } catch (EmptyResultDataAccessException | IllegalArgumentException ex) {
+            throw new IllegalArgumentException(ex);
         }
         return "redirect:/predefenses";
     }

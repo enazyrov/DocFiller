@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -123,11 +124,13 @@ public class PermormController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(path = "/delete")
-    public String deletePerform(@RequestParam(value = "deleteButton") String id) {
+    public String deletePerform(@RequestParam(value = "deleteButton") String id, RedirectAttributes redirectAttributes) {
         try {
             performRepository.deleteById(Long.parseLong(id));
+            redirectAttributes.addFlashAttribute("action", "deleted");
             System.out.println("The perform with id " + id + " was deleted");
-        } catch (EmptyResultDataAccessException | IllegalArgumentException ignored) {
+        } catch (EmptyResultDataAccessException | IllegalArgumentException ex) {
+            throw new IllegalArgumentException(ex);
         }
         return "redirect:/performs";
     }
