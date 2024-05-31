@@ -102,27 +102,13 @@ public class PrintFormService {
             throw new IllegalArgumentException(ex.getMessage());
         }
 
-        //return new File("C:\\Users\\enazy\\IdeaProjects\\DocFiller_\\src\\main\\resources\\static\\docs\\359_Печатная_форма.docx");
-        //return downloadFileTemplate(printForm);
     }
 
-    /*public File downloadFileTemplate(PrintForm printForm) {
-        try {
-            return dataStorageClient.getFileByUuid(printForm.getUuid());
-        } catch (Exception e) {
-            throw new RuntimeException("Ошибка получения шаблона", e);
-        }
-    }*/
+
     public ResponseEntity<Resource> createGeneratedPrintFormFileResponse(PrintForm printForm, String fileName, String jsonString) throws IOException {
         final HashMap<String, String> data = getDataFromJSON(jsonString);
-        //if (log.isDebugEnabled()) {
-        log.info("json: {}", jsonString);
-        for (Map.Entry<String, String> e : data.entrySet()) {
-            log.info("e k={} v={}", e.getKey(), e.getValue());
-        }
-        // }
+
         File file = getPrintFormFile(printForm);
-        log.debug("file name: {} template: {}", fileName, file.getAbsolutePath());
         File generatedFile = null;
         try {
             generatedFile = generatePrintForm(file, data);
@@ -142,18 +128,12 @@ public class PrintFormService {
         for (Object key : jsonObject.keySet()) {
             Object obj = jsonObject.get((String) key);
             if (obj != null) {
-                if (log.isDebugEnabled()) {
-                    log.debug("key={} type={}", key, obj.getClass().getName());
-                }
                 if (obj instanceof JSONArray) {
                     parseJSONArray((JSONArray) obj, data);
                 } else if (obj instanceof JSONObject) {
                     parseJSONObject((JSONObject) obj, data);
                 } else {
                     data.put((String) key, obj.toString());
-                    if (log.isDebugEnabled()) {
-                        log.debug("added pair k={} v={}", key, obj);
-                    }
                 }
             }
         }
@@ -174,7 +154,7 @@ public class PrintFormService {
 
     public HashMap<String, String> getDataFromJSON(String jsonString) {
         final HashMap<String, String> data = new HashMap<>();
-        data.put(LINE_BREAK, "\n"); // reportCode для переноса строки
+        data.put(LINE_BREAK, "\n");
         if (jsonString != null && !jsonString.isEmpty()) {
             final JSONObject jsonObject = new JSONObject(jsonString);
             parseJSONObject(jsonObject, data);
@@ -192,14 +172,14 @@ public class PrintFormService {
             parseTables(doc, data);//удаляем таблицы не удоволетворяющие check_table и строки с check_table
             loopForTable(doc, data);
             cleanTable(doc.getTables());
-            // обработаем текстовые параграфы
+
             fillParagraphs(doc.getParagraphs(), data);
-            // обработаем таблицы
+
             doc.getTables().stream()
                     .flatMap(tbl -> tbl.getRows().stream())
                     .flatMap(row -> row.getTableCells().stream())
                     .forEach(cell -> fillParagraphs(cell.getParagraphs(), data));
-            //удаляем переносы строк в начале и конце документа
+
             trimFinalDocument(doc);
         } catch (FileNotFoundException e) {
             log.error("Файл шаблона не найден!", e);
@@ -236,26 +216,20 @@ public class PrintFormService {
         }
         if (!success) {
             String errorMsg = "Не удалось создать ПФ по шаблону " + templateFile.getAbsolutePath();
-            log.error(errorMsg);
             throw new IOException(errorMsg);
         }
-        log.info("ПФ успешно создана по шаблону {} в файле {}", templateFile.getAbsolutePath(), resultFile.getAbsolutePath());
+
         return resultFile;
     }
 
-    /**
-     * Обрабатывает параграфы документа - ищет в них поля и заменяет значениями из data
-     *
-     * @param paragraphs параграфы документы
-     * @param data       данные в формате ключ-значение
-     */
+
     private void fillParagraphs(List<XWPFParagraph> paragraphs, HashMap<String, String> data) {
         List<Integer> runsForDelete = new ArrayList<>();
         boolean deleteRun;
         StringBuilder textForReplace = new StringBuilder();
         for (XWPFParagraph p : paragraphs) {
             String paragraphText = p.getText();
-//            LOGGER.debug("Обработка параграфа:\n {}", paragraphText);
+//
             if (paragraphText.contains(TAG_FOR_SHOW_FULL_BLOG_OPEN)) {
                 parseRunsByTagForShowFullBlog(p);
             }
@@ -272,14 +246,14 @@ public class PrintFormService {
                         String text = r.getText(0);
                         log.debug("Обработка фрагмента:\n {}", text);
                         if (text != null) {
-                            // найдем фрагмент с открывающим тегом
+
                             if (text.contains("${")) {
-                                // пометим этот и последующие фрагменты для удаления
+
                                 deleteRun = true;
                             }
-                            // если в фрагменте есть закрывающий тег
+
                             if (text.contains("}")) {
-                                // заменим текст в фрагменте
+
                                 if (textForReplace.indexOf("${[") != -1 && textForReplace.indexOf("]}") != -1) {
                                     textForReplace.setLength(0);
                                 }
@@ -288,19 +262,19 @@ public class PrintFormService {
                                 if (pos > 0) {
                                     r.setText("", 0);
                                     textForReplace.replace(pos, pos + QR_CODE.length(), "");
-                                    //addQRCode(r, calcExpression(textForReplace.toString(), data, p));
+
                                 } else {
                                     r.setText(calcExpression(textForReplace.toString(), data, p), 0);
                                     if (textForReplace.indexOf("${[") != -1 && textForReplace.indexOf("}") != -1) {
                                         textForReplace.setLength(0);
                                     }
                                 }
-                                // и не будем помечать для удаления
+
                                 deleteRun = false;
                             }
                         }
                         if (deleteRun) {
-                            // если удаляем, то добавим текст фрагмента в билдер
+
                             textForReplace.append(text);
 //                            LOGGER.debug("Удалим фрагмент:\n {}", text);
                             runsForDelete.add(runs.indexOf(r));

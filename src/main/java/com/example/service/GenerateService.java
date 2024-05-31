@@ -177,13 +177,17 @@ public class GenerateService {
     }
 
     public ResponseEntity<Resource> getPreview(Long number, Long typeId, String jsonString) throws IOException {
-        log.debug("getPredefensePreview(): Сохраняем заполненный документ...");
-        reportService.upload(
-                typeId,
-                number + "-preview.pdf",
-                number,
-                jsonString
-        );
+
+        try {
+            reportService.upload(
+                    typeId,
+                    number + "-preview.pdf",
+                    number,
+                    jsonString
+            );
+        } catch (IOException e) {
+            throw new RuntimeException("Не удалось сгенерировать документ");
+        }
 
         /*log.debug("getApplicationPreview(): Скачиваем и возвращаем пдф...");
         return download(

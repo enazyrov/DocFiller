@@ -106,7 +106,14 @@
                         <input type="text" name="advisorFioProtocol" class="form-control" th:value="${perform.advisorFioProtocol}"><br>
 
                         <h5>ФИО, должность, подразделение руководителя ВКР</h5>
-                        <input type="text" name="supervisorFio" class="form-control" th:value="${perform.supervisorFio}"><br>
+                        <input list="commissionMembersForSupervisorFio" name="supervisorFio" class="form-control" th:value="${perform.supervisorFio}"><br>
+                        <datalist id="commissionMembersForSupervisorFio">
+                            <div th:each="commissionMember : ${commissionMembers}">
+                                <option>
+                                    <p th:text="${commissionMember.fio} + ', ' + ${commissionMember.position} + ', ' + ${commissionMember.subunit}"/>
+                                </option>
+                            </div>
+                        </datalist>
 
                         <h5>Ученая степень, ученое звание, ФИО руководителя ВКР</h5>
                         <input list="commissionMembersForSupervisor" name="supervisorFioProtocol" class="form-control" th:value="${perform.supervisorFioProtocol}"><br>

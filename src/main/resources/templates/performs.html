@@ -106,13 +106,13 @@
     </div>
 </div>
 
-<script th:if="${action == 'deleted'}">
+<!--<script th:if="${action == 'deleted'}">
         $(document).ready(function() {
             toastr.success('Сведения о защите студента успешно удалены!', 'Успех');
         });
-</script>
+</script>-->
 
-<script th:if="${action == 'error'}">
+<script>
         $(document).ready(function() {
             toastr.error('Ошибка при удалении сведений', 'Ошибка');
         });

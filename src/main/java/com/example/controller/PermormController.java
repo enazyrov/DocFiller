@@ -48,6 +48,7 @@ public class PermormController {
                                 @RequestParam String shortFioGen,
                                 @RequestParam String groupNumber,
                                 @RequestParam String topic,
+                                @RequestParam String supervisorFio,
                                 @RequestParam String advisorFioProtocol,
                                 @RequestParam String supervisorFioProtocol,
                                 @RequestParam String supervisorFioReport) {
@@ -59,10 +60,11 @@ public class PermormController {
         perform.setShortFio(FioUtils.getShortFio(fullFio));
         perform.setGroupNumber(Integer.valueOf(groupNumber));
         perform.setTopic(topic);
+        perform.setSupervisorFio(supervisorFio);
         perform.setAdvisorFioProtocol(advisorFioProtocol);
         perform.setSupervisorFioProtocol(supervisorFioProtocol);
         perform.setSupervisorFioReport(supervisorFioReport);
-        performRepository.save(perform);
+        performService.save(perform);
         return "redirect:/performs";
     }
 
@@ -117,7 +119,7 @@ public class PermormController {
             perform.setSupervisorFio(supervisorFio);
             perform.setSupervisorFioProtocol(supervisorFioProtocol);
             perform.setSupervisorFioReport(supervisorFioReport);
-            performRepository.save(perform);
+            performService.save(perform);
             return "redirect:/performs/" + perform.getId();
         } else return "redirect:/performs";
     }
@@ -126,7 +128,7 @@ public class PermormController {
     @PostMapping(path = "/delete")
     public String deletePerform(@RequestParam(value = "deleteButton") String id, RedirectAttributes redirectAttributes) {
         try {
-            performRepository.deleteById(Long.parseLong(id));
+            performService.deleteById(Long.parseLong(id));
             redirectAttributes.addFlashAttribute("action", "deleted");
             System.out.println("The perform with id " + id + " was deleted");
         } catch (EmptyResultDataAccessException | IllegalArgumentException ex) {

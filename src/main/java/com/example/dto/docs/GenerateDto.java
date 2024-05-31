@@ -15,7 +15,7 @@ import java.util.List;
 public class GenerateDto {
     @ApiModelProperty(notes = "Номер сведений о защите")
     private String performId;
-    @ApiModelProperty(notes = "Настройки электронной цели")
+    @ApiModelProperty(notes = "Настройки печатной формы")
     private ServiceTargetSettingDto settings;
     @ApiModelProperty(notes = "Данные заявления в виде сформированных данных, с поддержкой мультиблоков")
     private List<ElementValueDto> values;

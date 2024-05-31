@@ -12,8 +12,12 @@
 
     <style>
         p {
-        font-size: 20px;
-    }
+            font-size: 20px;
+        }
+        datalist {
+            width: 70%;
+        }
+
     </style>
 
     <title>Создание новых сведений о защите</title>
@@ -97,7 +101,7 @@
 
                     <h5>Ученая степень, ученое звание, ФИО консультанта по ВКР</h5>
                     <input list="commissionMembersForAdvisor" name="advisorFioProtocol" class="form-control"><br>
-                    <datalist id="commissionMembersForAdvisor">
+                    <datalist id="commissionMembersForAdvisor" class="datalist">
                         <div th:each="commissionMember : ${commissionMembers}">
                             <option>
                                 <p th:text="${commissionMember.degree} + ', ' + ${commissionMember.rank} + ', ' + ${commissionMember.fio}"/>
@@ -105,19 +109,19 @@
                         </div>
                     </datalist>
 
-                    <!--<h5>ФИО, должность, подразделение руководителя ВКР</h5>
+                    <h5>ФИО, должность, подразделение руководителя ВКР</h5>
                     <input list="commissionMembersForSupervisorFio" name="supervisorFio" class="form-control"><br>
-                    <datalist id="commissionMembersForSupervisorFio">
+                    <datalist id="commissionMembersForSupervisorFio" class="datalist">
                         <div th:each="commissionMember : ${commissionMembers}">
                             <option>
-                                <p th:text="${commissionMember.fio} + ', ' + ${commissionMember.position} +  + ${commissionMember.subunit}"/>
+                                <p th:text="${commissionMember.fio} + ', ' + ${commissionMember.position} + ', ' + ${commissionMember.subunit}"/>
                             </option>
                         </div>
-                    </datalist>-->
+                    </datalist>
 
                     <h5>Ученая степень, ученое звание, ФИО руководителя ВКР</h5>
                     <input list="commissionMembersForSupervisor" name="supervisorFioProtocol" class="form-control"><br>
-                    <datalist id="commissionMembersForSupervisor">
+                    <datalist id="commissionMembersForSupervisor" class="datalist">
                         <div th:each="commissionMember : ${commissionMembers}">
                             <option>
                                 <p th:text="${commissionMember.degree} + ', ' + ${commissionMember.rank} + ', ' + ${commissionMember.fio}"/>
@@ -127,7 +131,7 @@
 
                     <h5>Ученая степень, ученое звание,должность, подразделение, ФИО руководителя ВКР</h5>
                     <input list="commissionMembersForSupervisorPz" name="supervisorFioReport" class="form-control"><br>
-                    <datalist id="commissionMembersForSupervisorPz">
+                    <datalist id="commissionMembersForSupervisorPz" class="datalist">
                         <div th:each="commissionMember : ${commissionMembers}">
                             <option>
                                 <p th:text="${commissionMember.degree} + ', ' + ${commissionMember.rank} + ', ' + ${commissionMember.position} + ', ' + ${commissionMember.subunit} + ', ' + ${commissionMember.fio}"/>
